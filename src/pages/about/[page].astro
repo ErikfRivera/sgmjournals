@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  const PAGES = {
+  'for-authors': {
+    title: 'For authors',
+    body: `<p>This site is an archival rebuild of the Society for General Microbiology research journals, preserving the published record. It does not accept new submissions.</p>
+<p>The Society's journals are now published by the Microbiology Society. For current author guidelines, submission systems, and editorial policies, please refer to the Microbiology Society's current journal websites.</p>`,
+  },
+  'for-reviewers': {
+    title: 'For reviewers',
+    body: `<p>This site is an archival rebuild of the Society for General Microbiology research journals and does not manage peer review.</p>
+<p>For current reviewer guidance and to register as a reviewer, please refer to the Microbiology Society's current journal websites.</p>`,
+  },
+  'open-access': {
+    title: 'Open Access',
+    body: `<p>The Society for General Microbiology is a not-for-profit, society-owned publisher. Across its journals, articles were made available under the access terms in force at the time of publication; in hybrid journals, many articles became freely available after an embargo period.</p>
+<p>This archive preserves the published research so the record, and the citations pointing to it, remain accessible. For current Open Access policies, see the Microbiology Society's current journal websites.</p>`,
+  },
+  'subscriptions': {
+    title: 'Subscriptions',
+    body: `<p>This site is an archival rebuild and does not sell subscriptions. The preserved content is presented to keep the published research record and its inbound links accessible.</p>
+<p>For current access and institutional licensing, please refer to the Microbiology Society's current journal websites.</p>`,
+  },
+  'contact': {
+    title: 'Contact',
+    body: `<p>This is an archival rebuild of the Society for General Microbiology journals. For enquiries about current journals, please contact the Microbiology Society.</p>`,
+  },
+  };
+  return Object.entries(PAGES).map(([page, data]) => ({ params: { page }, props: data }));
+}
+
+const p = Astro.props;
+---
+<BaseLayout title={p.title} description={`${p.title} — SGM Journals archive.`} navActive="About">
+  <header class="page-head">
+    <div class="sgm-container page-head__inner">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/about">About</a><span>/</span><span style="color:var(--text-body)">{p.title}</span></nav>
+      <h1>{p.title}</h1>
+    </div>
+  </header>
+  <div class="sgm-container page-body">
+    <div class="prose" style="max-width:var(--container-text)" set:html={p.body}></div>
+  </div>
+</BaseLayout>

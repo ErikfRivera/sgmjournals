@@ -86,7 +86,8 @@ if (entry.type === 'article') {
   description = j ? j.tagline : `${entry.journal} — archived research from the Society for General Microbiology.`;
 } else {
   title = entry.title || 'Information';
-  description = (entry.bodyHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240);
+  description = (entry.bodyHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240)
+    || `${title} — an archived page from the SGM Journals research archive.`;
 }
 
 const navActive = 'Journals';

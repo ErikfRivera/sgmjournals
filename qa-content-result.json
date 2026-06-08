@@ -1,0 +1,38 @@
+{
+  "C-1 no legacy jgv/ijsb prefixes": {
+    "pass": true,
+    "detail": "0 pages under /jgv|/ijsb"
+  },
+  "C-2 every page has rel=canonical": {
+    "pass": true,
+    "detail": "0 pages missing canonical"
+  },
+  "C-2b single canonical per page": {
+    "pass": true,
+    "detail": "0 pages with >1 canonical"
+  },
+  "D-4 no leftover HighWire chrome": {
+    "pass": true,
+    "detail": "0 pages with chrome (e.g. )"
+  },
+  "E-1 figure images resolve": {
+    "pass": true,
+    "detail": "0/102 broken (e.g. )"
+  },
+  "F-1 description present": {
+    "pass": true,
+    "detail": "0 pages missing meta description"
+  },
+  "F-1b no login/placeholder titles": {
+    "pass": true,
+    "detail": "0 pages with login/placeholder titles (e.g. )"
+  },
+  "F-2 ScholarlyArticle JSON-LD valid": {
+    "pass": true,
+    "detail": "14083 valid, 0 invalid"
+  },
+  "F-3 sitemap + robots present": {
+    "pass": true,
+    "detail": ""
+  }
+}

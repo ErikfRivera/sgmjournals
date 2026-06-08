@@ -970,7 +970,7 @@ url,type,reason
 "https://www.sgmjournals.org/mic/content/6/1-2/41.full.pdf",article-pdf,not-in-archive
 "https://www.sgmjournals.org/jmm/cgi/doi/10.1099/jmm.0.082818-0",other,not-in-archive
 "https://www.sgmjournals.org/mic/content/160/Pt_9/2045",article-pdf,not-in-archive
-"https://www.sgmjournals.org/vir/cgi/cont%E2%80%A6stract/49/2/427",other,not-in-archive
+"https://www.sgmjournals.org/vir/cgi/cont%E2%80%A6stract/49/2/427",other,malformed-url
 "https://www.sgmjournals.org/vir/cgi/doi/",other,not-in-archive
 "https://www.sgmjournals.org/jgv/content/journal/jgv/10.1099/jgv.0.000249",article,not-in-archive
 "https://www.sgmjournals.org/mic/content/158/Pt_7/1665",article,not-in-archive
@@ -1065,7 +1065,7 @@ url,type,reason
 "https://www.sgmjournals.org/mic/content/33/3/357",article-pdf,not-in-archive
 "https://www.sgmjournals.org/mic/content/4/2/107",article-pdf,not-in-archive
 "https://www.sgmjournals.org/ijsb/content/55/2/919",article,not-in-archive
-"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.13211",article,not-in-archive
+"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.13211",article,malformed-url
 "https://www.sgmjournals.org/vir/content/95/Pt_7.toc",article,not-in-archive
 "https://www.sgmjournals.org/mic/cgi/crossref-forward-links/145/7/1613",other,not-in-archive
 "https://www.sgmjournals.org/mic/content/135/7/1933",article-pdf,not-in-archive
@@ -1177,7 +1177,7 @@ url,type,reason
 "https://www.sgmjournals.org/jmm/content/41/2/71",article-pdf,not-in-archive
 "https://www.sgmjournals.org/vir/content/vir.0.069906-0",article-abstract,not-in-archive
 "https://www.sgmjournals.org/jgv/content/journal/jgv/10.1099/vir.0.18808-0",article,not-in-archive
-"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.8170",article,not-in-archive
+"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.8170",article,malformed-url
 "https://www.sgmjournals.org/mic/cgi/issue_pdf/advertising_pdf/96/2",other,not-in-archive
 "https://www.sgmjournals.org/vir/content/92/9/2047",article-pdf,not-in-archive
 "https://www.sgmjournals.org/vir/content/88/8/2275",article-pdf,not-in-archive
@@ -1189,7 +1189,7 @@ url,type,reason
 "https://www.sgmjournals.org/mic/content/journal/micro/10.1099/00221287-147-4-1007",article,not-in-archive
 "https://www.sgmjournals.org/mic/content/137/3/477",article-pdf,not-in-archive
 "https://www.sgmjournals.org/mic/content/60/1/125",article-abstract,not-in-archive
-"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.2440",article,not-in-archive
+"https://www.sgmjournals.org/ijsb/content/63/Pt_6/doi:10.1601/nm.2440",article,malformed-url
 "https://www.sgmjournals.org/mic/content/136/11/2327",article-pdf,not-in-archive
 "https://www.sgmjournals.org/mic/content/vol96/issue2/aindex.shtml",article,not-in-archive
 "https://www.sgmjournals.org/mic/cgi/issue_pdf/edboard_pdf/96/2",other,not-in-archive

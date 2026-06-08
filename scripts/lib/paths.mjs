@@ -36,8 +36,8 @@ export function hostToJournal(hostname) {
   // take the leftmost label before .sgmjournals.org
   const m = h.match(/^([^.]+(?:\.[^.]+)*)\.sgmjournals\.org$/);
   let sub = m ? m[1] : h.replace(/\.sgmjournals\.org$/, '');
-  // strip known prefixes
-  sub = sub.replace(/^intl-/, '').replace(/^submit-/, '').replace(/^m\./, '');
+  // strip known prefixes (intl-/submit- mirrors, mobile m., www. and old. aliases)
+  sub = sub.replace(/^intl-/, '').replace(/^submit-/, '').replace(/^m\./, '').replace(/^www\./, '').replace(/^old\./, '');
   const map = { jgv: 'vir', ijsb: 'ijs' };
   if (map[sub]) sub = map[sub];
   const journals = new Set(['vir', 'mic', 'ijs', 'jmm', 'jmmcr']);

@@ -251,14 +251,19 @@ export function extractJournalIntro(html, ctx) {
 }
 
 // ---- generic info page ----------------------------------------------------
+const LOGIN_TITLE = /sign[\s-]?in|log[\s-]?in|access denied|page not found|not found|error|institutional access/i;
+
 export function extractInfoPage(html, ctx) {
   const $ = cheerio.load(html, { decodeEntities: false });
-  const title =
+  let title =
     ($('h1').first().text() || '').trim() ||
     ($('meta[name="DC.Title"]').attr('content') || '').trim() ||
     ($('title').first().text() || '').trim();
+  title = title.replace(/\s*[|–-]\s*(SGM Journals|Microbiology|IJSEM|Journal of [^|]+)\s*$/i, '').trim();
 
-  // Try common HighWire content containers, widest first.
+  // A captured login/error wall has no real content.
+  if (LOGIN_TITLE.test(title)) return { title: '', bodyHtml: '', isLogin: true };
+
   const candidates = [
     '#content-block', '.content-block', '#main-content', '.primary',
     '.article', '#hw-article', '.cb-contents', '#content', 'main',
@@ -272,9 +277,12 @@ export function extractInfoPage(html, ctx) {
 
   const $clone = $content.clone();
   stripJunk($, $clone);
-  // remove nav/header/footer chrome by common ids/classes
-  $clone.find('header, footer, nav, .nav, .header, .footer, .breadcrumb, .pagenav, .skip, #header, #footer, #nav, .access-options, .signin, .login').remove();
+  // strip chrome: nav/header/footer, forms/inputs (login), all images (banners,
+  // spacers, icons), and known HighWire widgets — info pages are text content.
+  $clone.find('header, footer, nav, .nav, .header, .footer, .breadcrumb, .pagenav, .skip, #header, #footer, #nav, .access-options, .signin, .login, form, input, button, select, img, iframe, object, .ad, .advertisement, [id*="login"], [class*="login"], [class*="banner"], [class*="masthead"]').remove();
   rewriteLinks($, $clone, ctx);
   const bodyHtml = cleanHtml($, $clone);
+  // If nothing meaningful survived, treat as a login/empty wall.
+  if (bodyHtml.replace(/<[^>]+>/g, '').trim().length < 40) return { title, bodyHtml: '', isLogin: true };
   return { title, bodyHtml };
 }

@@ -36,15 +36,19 @@ function parseArticle(host, uri) {
   if (vm) { variant = vm[1]; rest = rest.slice(0, -(vm[0].length)); }
   // 3-segment V/I/P
   const seg = rest.match(/^([^/]+)\/([^/]+)\/([^/]+)$/);
+  const SAFE = /^[A-Za-z0-9._~+/-]+$/;
   if (seg) {
     const [, vol, issue, page] = seg;
-    if (/[{}\[\]<>"'\s|\\^`%.]/.test(page) || /[{}\[\]<>"'\s|\\^`%?#]/.test(vol + issue)) return null;
-    return { journal, slug: `${journal}/content/${vol}/${issue}/${page}`, vol, issue, page, variant };
+    if (/\./.test(page)) return null;
+    const slug = `${journal}/content/${vol}/${issue}/${page}`;
+    if (!SAFE.test(slug)) return null;
+    return { journal, slug, vol, issue, page, variant };
   }
   // single-segment DOI-style id (e.g. mic.0.053959-0)
   if (!rest.includes('/') && /^[a-z]+\.[0-9]/i.test(rest)) {
-    if (/[{}\[\]<>"'\s|\\^`%?#]/.test(rest)) return null;
-    return { journal, slug: `${journal}/content/${rest}`, id: rest, variant };
+    const slug = `${journal}/content/${rest}`;
+    if (!SAFE.test(slug)) return null;
+    return { journal, slug, id: rest, variant };
   }
   return null;
 }

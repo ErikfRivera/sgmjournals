@@ -188,13 +188,22 @@ function processInfoPage(row, slug) {
   })();
   if (!html) { recordUnbuilt(row, 'source-file-missing'); return false; }
   const info = extractInfoPage(html, { host, requestUri, journal });
+  // login wall / empty capture -> honest title from the URL, no fabricated body
+  let title = info.title, bodyHtml = info.bodyHtml, stub = false;
+  if (info.isLogin || !bodyHtml) {
+    const seg = (requestUri.split('/').filter(Boolean).pop() || 'Information').replace(/\.(s?html|dtl|xhtml)$/i, '').replace(/[._-]+/g, ' ').trim();
+    title = seg.charAt(0).toUpperCase() + seg.slice(1);
+    bodyHtml = '';
+    stub = true;
+  }
   const entry = {
     type: 'info-page',
     slug,
     journal,
     canonical: `https://www.sgmjournals.org/${slug}`,
-    title: info.title,
-    bodyHtml: info.bodyHtml,
+    title,
+    bodyHtml,
+    ...(stub ? { stub: true } : {}),
   };
   writeEntry(slug, entry);
   return true;
@@ -238,8 +247,8 @@ for (const row of rows) {
   // referrers). Don't mint a page for those — redirect the junk to the clean
   // path (which its own manifest row builds) and skip.
   let decoded = slug; try { decoded = decodeURIComponent(slug); } catch {}
-  if (/[{}\[\]<>"'\s|\\^`?#]/.test(decoded)) {
-    const clean = decoded.replace(/[{}\[\]<>"'\s|\\^`?#].*$/, '').replace(/\/+$/, '');
+  if (!/^[A-Za-z0-9._~+/-]+$/.test(decoded)) {
+    const clean = decoded.replace(/[^A-Za-z0-9._~+/-].*$/, '').replace(/\/+$/, '');
     if (clean && clean !== slug) addRedirect('/' + slug, '/' + clean);
     recordUnbuilt(row, 'malformed-url');
     continue;

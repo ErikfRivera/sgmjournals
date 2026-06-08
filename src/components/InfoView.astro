@@ -14,5 +14,7 @@ const j = getJournal(entry.journal);
   </div>
 </header>
 <div class="sgm-container page-body">
-  <div class="prose" set:html={entry.bodyHtml}></div>
+  {entry.bodyHtml
+    ? <div class="prose" style="max-width:var(--container-text)" set:html={entry.bodyHtml}></div>
+    : <div class="notice" style="max-width:var(--container-text)"><strong>This page is not available in the archive.</strong> The original page at this address was not recovered (it required sign-in or was not captured). This URL is preserved so inbound links resolve.</div>}
 </div>

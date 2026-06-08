@@ -80,17 +80,21 @@ canonicalization after the host rewrite.
 ## Pipeline order
 
 ```bash
-npm run ingest          # Phase 1-2: backlinked manifest (3,423 pages)
-node scripts/phase4.mjs # Phase 4: bounded sweep of remaining archive articles
-node scripts/phase3.mjs # Phase 3: pmidlookup resolver + citation stubs
-node scripts/aliases.mjs# Recreate a real page at every Ahrefs backlink-target URL
-node scripts/phase5.mjs # Phase 5: sitemap.xml, robots.txt, build-report.md
-npm run build           # astro build -> dist/
+npm run ingest             # Phase 1-2: backlinked manifest (3,423 pages)
+node scripts/phase4.mjs    # Phase 4: bounded sweep of remaining archive articles
+node scripts/repair-meta.mjs  # re-extract metadata for login-walled variants (CrossRef fallback)
+node scripts/phase3.mjs    # Phase 3: pmidlookup resolver + citation stubs
+node scripts/aliases.mjs   # recreate a real page at every Ahrefs backlink-target URL
+node scripts/fix-links.mjs # normalize/strip in-body links (zero broken internal links)
+node scripts/phase5.mjs    # sitemap.xml, robots.txt, build-report.md
+npm run build              # astro build -> dist/
+node scripts/qa.mjs && node scripts/qa-content.mjs   # QA gates
 ```
 
-Run phase4 before phase3 (stubs fill genuine gaps) and aliases after both
-(it reuses the canonical content). `npm run build` raises the Node heap
-(`--max-old-space-size`) because getStaticPaths loads all generated entries.
+Order matters: repair-meta after phase4 (fixes canonicals before aliases copy
+them); aliases after phase3; fix-links last (needs the full built set). `npm run
+build` raises the Node heap because getStaticPaths loads all generated entries.
+`middleware.js` normalizes corrupt referrer URLs to the clean canonical.
 
 ## Backlinked URLs are recreated, not redirected
 

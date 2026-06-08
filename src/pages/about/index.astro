@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const body = `<p>This site is an archival rebuild of the research journals of the <strong>Society for General Microbiology</strong> (SGM), presented at a single domain to preserve the published research record and the many citations that point to it.</p>
+<p>The Society for General Microbiology was a not-for-profit, society-owned publisher of peer-reviewed microbiology research, spanning bacteriology, virology, genomics, taxonomy, and medical microbiology. Its portfolio included <em>Microbiology</em>, the <em>Journal of General Virology</em>, the <em>Journal of Medical Microbiology</em>, the <em>International Journal of Systematic and Evolutionary Microbiology</em>, and <em>JMM Case Reports</em>.</p>
+<p>Content here is rebuilt from a recovered archive of the original site. Article text, author names, references, and figures are preserved as published; the original platform's navigation, scripts, and login were removed. Where only citation metadata could be recovered, a page shows that metadata and notes that the full text is not available in the archive.</p>
+<p>The Society's journals are now published by the Microbiology Society; for current journals and services, please refer to its websites.</p>`;
+---
+<BaseLayout title="About this archive" description="An archival rebuild of the Society for General Microbiology research journals." navActive="About">
+  <header class="page-head">
+    <div class="sgm-container page-head__inner">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span style="color:var(--text-body)">About</span></nav>
+      <h1>About this archive</h1>
+    </div>
+  </header>
+  <div class="sgm-container page-body">
+    <div class="prose" style="max-width:var(--container-text)" set:html={body}></div>
+  </div>
+</BaseLayout>
