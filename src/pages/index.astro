@@ -50,13 +50,13 @@ const jsonld = {
       <div class="journals-grid">
         {journals.map((j) => (
           <article class="sgm-journal-card sgm-journal-card--hover" style={`--stripe:${j.accent}`}>
-            <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)"><a href={`/${j.code}/`} style="color:inherit;text-decoration:none">{j.name}</a></h3>
+            <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)"><a href={`/${j.code}`} style="color:inherit;text-decoration:none">{j.name}</a></h3>
             <p style="color:var(--text-muted);font-size:var(--fs-body-sm);margin:0;line-height:1.55">{j.tagline}</p>
             <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;margin:var(--sp-4) 0">
               <span class="sgm-tag">Founded {j.founded}</span>
               <span class="sgm-tag">ISSN {j.issn}</span>
             </div>
-            <a class="sgm-link" href={`/${j.code}/`} style="font-weight:600;font-size:var(--fs-label)">View journal →</a>
+            <a class="sgm-link" href={`/${j.code}`} style="font-weight:600;font-size:var(--fs-label)">View journal →</a>
           </article>
         ))}
       </div>

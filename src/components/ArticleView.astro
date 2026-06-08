@@ -32,7 +32,7 @@ const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
   <div class="sgm-container article-head__inner">
     <nav class="crumb" aria-label="Breadcrumb">
       <a href="/">Home</a><span>/</span>
-      {j && <><a href={`/${j.code}/`}>{j.name}</a><span>/</span></>}
+      {j && <><a href={`/${j.code}`}>{j.name}</a><span>/</span></>}
       {m.volume && <span>Volume {m.volume}</span>}
     </nav>
     <div class="article-type">{articleType}</div>
@@ -75,7 +75,7 @@ const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
     <div class="side-card">
       <h3>Article information</h3>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3);font-size:var(--fs-body-sm)">
-        {journalName && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Journal</div>{j ? <a class="sgm-link" href={`/${j.code}/`}>{journalName}</a> : journalName}</div>}
+        {journalName && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Journal</div>{j ? <a class="sgm-link" href={`/${j.code}`}>{journalName}</a> : journalName}</div>}
         {m.volume && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Volume / Issue</div>Vol. {m.volume}{m.issue ? `, Issue ${m.issue}` : ''}</div>}
         {pages && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Pages</div>{pages}</div>}
         {yr && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Published</div>{yr}</div>}

@@ -25,7 +25,7 @@ const description = 'Resolving a PubMed identifier to its article.';
       Redirecting you to the article for this PubMed identifier.
     </p>
     <p id="pmid-fallback" style="margin-top:var(--sp-5)">
-      <a id="pmid-link" class="sgm-btn sgm-btn--primary" href={j ? `/${j.code}/` : '/'}>Continue to {j ? j.name : 'the journals'}</a>
+      <a id="pmid-link" class="sgm-btn sgm-btn--primary" href={j ? `/${j.code}` : '/'}>Continue to {j ? j.name : 'the journals'}</a>
     </p>
   </div>
   <script type="application/json" id="pmid-map" set:html={JSON.stringify(resolvedMap)}></script>

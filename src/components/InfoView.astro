@@ -7,7 +7,7 @@ const j = getJournal(entry.journal);
   <div class="sgm-container page-head__inner">
     <nav class="crumb" aria-label="Breadcrumb">
       <a href="/">Home</a><span>/</span>
-      {j && <><a href={`/${j.code}/`}>{j.name}</a><span>/</span></>}
+      {j && <><a href={`/${j.code}`}>{j.name}</a><span>/</span></>}
       <span style="color:var(--text-body)">{entry.title || 'Information'}</span>
     </nav>
     <h1>{entry.title || 'Information'}</h1>

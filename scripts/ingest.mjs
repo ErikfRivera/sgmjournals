@@ -169,7 +169,7 @@ function processJournalHome(row, slug) {
     type: 'journal-home',
     slug,
     journal,
-    canonical: `https://www.sgmjournals.org/${slug}/`,
+    canonical: `https://www.sgmjournals.org/${slug}`,
     introHtml: intro && intro.length < 6000 ? intro : '',
   };
   writeEntry(slug, entry);

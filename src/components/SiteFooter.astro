@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
     <div class="footer__grid">
       <div class="footer__col">
         <h4>Our journals</h4>
-        <ul>{journals.map((j) => <li><a href={`/${j.code}/`}>{j.name}</a></li>)}</ul>
+        <ul>{journals.map((j) => <li><a href={`/${j.code}`}>{j.name}</a></li>)}</ul>
       </div>
       <div class="footer__col">
         <h4>Resources</h4>
