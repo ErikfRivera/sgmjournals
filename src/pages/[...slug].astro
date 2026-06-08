@@ -91,13 +91,11 @@ if (entry.type === 'article') {
 }
 
 const navActive = 'Journals';
-// Thin pages (explicit stubs, or articles where only citation metadata was
-// recovered) stay reachable (200 + canonical, so link equity still flows) but
-// are not indexed.
-const thin = entry.type === 'article' && !entry.bodyHtml && !entry.abstractHtml;
-const robots = (entry.stub || thin) ? 'noindex,follow' : undefined;
+// Every reconstructed page (including stubs and citation-only articles) is
+// served 200 + canonical and is left indexable so the full archive can be
+// crawled and indexed.
 ---
-<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld} robots={robots}>
+<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld}>
   {entry.type === 'article' && <ArticleView entry={entry} />}
   {entry.type === 'journal-home' && <JournalHomeView entry={entry} articles={related} />}
   {(entry.type === 'info-page' || entry.type === 'other' || entry.type === 'subscriptions' || entry.type === 'toc/issue') && <InfoView entry={entry} />}
