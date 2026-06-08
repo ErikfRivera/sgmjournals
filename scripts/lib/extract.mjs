@@ -139,14 +139,29 @@ export function extractArticle(html, ctx) {
   let abstractHtml = '';
   let bodyHtml = '';
   let referencesHtml = '';
+  let affiliationsHtml = '';
+  let correspHtml = '';
   const assets = [];
 
   if ($ft.length) {
     stripJunk($, $ft);
 
     // remove the duplicated front-matter (title + author list are rendered
-    // from citation meta in the page header). Keep affiliations/correspondence.
+    // from citation meta in the page header), but first lift out the
+    // affiliations + correspondence so they can be shown under the authors.
     $ft.find('h1#article-title-1, h1.article-title, .article-title').first().remove();
+    const $affs = $ft.find('.affiliation-list').first();
+    if ($affs.length) {
+      const $c = $affs.clone();
+      $c.find('a').each((_, a) => { const t = $(a).text(); $(a).replaceWith(t); });
+      affiliationsHtml = cleanHtml($, $c);
+    }
+    const $corr = $ft.find('.corresp-list, .corresp').first();
+    if ($corr.length) {
+      const $c = $corr.clone();
+      rewriteLinks($, $c, ctx);
+      correspHtml = cleanHtml($, $c);
+    }
     $ft.find('.contributors, .contributor-list, .fm-author').remove();
     // drop in-text reference backlink glyphs and dead author-search links
     $ft.find('.rev-xref-ref').remove();
@@ -189,7 +204,7 @@ export function extractArticle(html, ctx) {
   // PDF availability: look up the recovered full.pdf
   const pdf = resolvePdf(ctx, meta);
 
-  return { meta, abstractHtml, bodyHtml, referencesHtml, assets, pdf };
+  return { meta, abstractHtml, bodyHtml, referencesHtml, affiliationsHtml, correspHtml, assets, pdf };
 }
 
 export function extractAbstract(html, ctx) {
@@ -212,6 +227,27 @@ function cleanHtml($, $el) {
   // collapse runs of blank lines / excessive whitespace between tags
   h = h.replace(/ /g, ' ').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n');
   return h.trim();
+}
+
+// ---- journal-home intro ---------------------------------------------------
+// Journal home pages are mostly navigation. Pull only substantive prose
+// paragraphs (the journal scope/description), discarding link lists & chrome.
+export function extractJournalIntro(html, ctx) {
+  const $ = cheerio.load(html, { decodeEntities: false });
+  $('script, style, noscript, nav, header, footer, .nav, .header, .footer').remove();
+  const paras = [];
+  $('p').each((_, el) => {
+    const $p = $(el);
+    const text = $p.text().replace(/\s+/g, ' ').trim();
+    const links = $p.find('a').length;
+    const linkText = $p.find('a').text().replace(/\s+/g, ' ').trim().length;
+    // keep real sentences: long enough, not a link-list, mostly non-link text
+    if (text.length >= 140 && text.split(/\s+/).length >= 25 && linkText < text.length * 0.5 && links <= 4) {
+      rewriteLinks($, $p, ctx);
+      paras.push(`<p>${$p.html().replace(/\s+/g, ' ').trim()}</p>`);
+    }
+  });
+  return paras.slice(0, 3).join('\n');
 }
 
 // ---- generic info page ----------------------------------------------------

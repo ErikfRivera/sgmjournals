@@ -40,6 +40,8 @@ const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
     {m.authors && m.authors.length > 0 && (
       <p class="article-authors">{m.authors.join(', ')}</p>
     )}
+    {entry.affiliationsHtml && <div class="article-affs" set:html={entry.affiliationsHtml}></div>}
+    {entry.correspHtml && <div class="article-corresp" set:html={entry.correspHtml}></div>}
     {citeLine && <p class="article-cite">{journalName} {citeLine.replace(journalName, '').trim()}{doiUrl && <> · <a href={doiUrl}>https://doi.org/{m.doi}</a></>}</p>}
     <div class="article-head__actions">
       {entry.pdfPath && <a class="sgm-btn sgm-btn--primary" href={entry.pdfPath}><Icon name="download" size={16} /> Download PDF</a>}

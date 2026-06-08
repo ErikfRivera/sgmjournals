@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseCsv } from './lib/csv.mjs';
 import { lookupLoose, readHtml, copyAsset, fileForRow } from './lib/db.mjs';
-import { extractArticle, extractInfoPage } from './lib/extract.mjs';
+import { extractArticle, extractInfoPage, extractJournalIntro } from './lib/extract.mjs';
 import {
   MANIFEST_CSV, DATA_DIR, PUBLIC_DIR, PROGRESS_JSON, REDIRECTS_FILE, UNBUILT_CSV,
   urlToSlug, hostToJournal, resolveArchiveFile,
@@ -118,6 +118,8 @@ function processArticle(row, slug) {
     abstractHtml: ex.abstractHtml,
     bodyHtml: ex.bodyHtml,
     referencesHtml: ex.referencesHtml,
+    affiliationsHtml: ex.affiliationsHtml,
+    correspHtml: ex.correspHtml,
     pdfPath,
     refdomains: Number(row.rank_refdomains) || 0,
   };
@@ -161,15 +163,14 @@ function processJournalHome(row, slug) {
   })();
   let intro = '';
   if (html) {
-    const info = extractInfoPage(html, { host, requestUri, journal });
-    intro = info.bodyHtml;
+    intro = extractJournalIntro(html, { host, requestUri, journal });
   }
   const entry = {
     type: 'journal-home',
     slug,
     journal,
     canonical: `https://www.sgmjournals.org/${slug}/`,
-    introHtml: intro && intro.length < 8000 ? intro : '',
+    introHtml: intro && intro.length < 6000 ? intro : '',
   };
   writeEntry(slug, entry);
   return true;

@@ -44,6 +44,13 @@
 }
 .article-authors { font-size: var(--fs-body-lg); color: var(--text-body); margin: var(--sp-4) 0 0; line-height: 1.5; max-width: 70ch; }
 .article-authors .sep { color: var(--border-strong); }
+.article-affs { margin: var(--sp-3) 0 0; font-size: var(--fs-body-sm); color: var(--text-muted); line-height: 1.5; max-width: 70ch; }
+.article-affs ol, .article-affs ul { list-style: none; margin: 0; padding: 0; }
+.article-affs li { margin-bottom: 2px; }
+.article-affs address { font-style: normal; display: inline; }
+.article-affs sup { color: var(--acc, var(--brand-primary)); font-weight: 600; }
+.article-corresp { margin: var(--sp-3) 0 0; font-size: var(--fs-body-sm); color: var(--text-muted); line-height: 1.5; max-width: 70ch; }
+.article-corresp a { color: var(--link); text-decoration: none; }
 .article-cite {
   font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--text-muted);
   margin: var(--sp-4) 0 0; line-height: 1.7;
