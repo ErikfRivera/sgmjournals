@@ -1270,7 +1270,7 @@ ijs/content/46/4/1034,tier3-abstract,missing,tier3-abstract,abstract,yes,html/73
 ijs/content/46/4/1042,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/ee21a021e75bf6aec03dccdfdd66f8edb5834f26.00004063.html
 ijs/content/46/4/1056,tier3-abstract,missing,tier3-abstract,abstract,yes,html/767a134b5dce510e3d9242b792b8279331a668bd.00004064.html
 ijs/content/46/4/1065,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1a7016c337e87e8d778ae617353d56998f2a231e.00004065.html
-ijs/content/46/4/1070,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/ded596f5594302165f3e516d6c2572eda7a05cb6.00004066.html
+ijs/content/46/4/1070,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/ded596f5594302165f3e516d6c2572eda7a05cb6.00004066.html
 ijs/content/46/4/1078,tier3-abstract,tier3-abstract,tier3-abstract,abstract,yes,html/b1acdbcd60b706225f6798b420b0a36f6a2aca2f.00004067.html
 ijs/content/46/4/1083,tier3-abstract,tier3-abstract,tier3-abstract,abstract,yes,html/54c7c21fb9c875ee5584a560386b4ab7f530a079.00004068.html
 ijs/content/46/4/1088,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/94e1fff25d2d253c5dfb26ba5daa0442b4c1fdf9.00004069.html
@@ -1731,7 +1731,7 @@ ijs/content/49/1/175,tier3-abstract,missing,tier3-abstract,abstract,yes,html/b0e
 ijs/content/49/1/179,tier3-abstract,missing,tier3-abstract,abstract,yes,html/e0125405f0b618832a9d87ee06f4aeb4abb87609.00004485.html
 ijs/content/49/1/185,tier3-abstract,missing,tier3-abstract,abstract,yes,html/79aed0a4fab21054b52ef81a0bc84fc58f94bc22.00004486.html
 ijs/content/49/1/189,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/2d8e92122815889cb084198bb9ebdaa60d692538.00004487.html
-ijs/content/49/1/19,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/d90aa1edd2d862a7ad535557e29d0f8e75da3f34.00004488.html
+ijs/content/49/1/19,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d90aa1edd2d862a7ad535557e29d0f8e75da3f34.00004488.html
 ijs/content/49/1/193,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/497f75a8a7a92edd80ef828d2b9500105392345d.00027971.html
 ijs/content/49/1/201,tier3-abstract,missing,tier3-abstract,abstract,yes,html/0200c80e48fa75ba18c4d6c6f93d1dda435e15b2.00004490.html
 ijs/content/49/1/207,tier3-abstract,missing,tier3-abstract,abstract,yes,html/70a82b9d4fbedb03c930ebb41c7187b1e9647cb2.00004491.html
@@ -2276,7 +2276,7 @@ ijs/content/51/1/237,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d52
 ijs/content/51/1/249,tier2-pdf,tier4-stub,tier2-pdf(pdf only),summarized-pdf,no,binary/793ea7e3a13b8eb3698d5ee4de8cdf01dc2ee385.00020226.pdf
 ijs/content/51/1/251,tier2-pdf,tier4-stub,tier2-pdf(pdf only),summarized-pdf,no,binary/88b58a70438f78452f541d4c0bffd7b1d2049878.00020228.pdf
 ijs/content/51/1/255,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/cfa8f979d6cbe6270b4ba62565a003e569338b38.00005020.html
-ijs/content/51/1/257,tier2-pdf,tier4-stub,tier2-pdf(pdf only),summarized-pdf,no,binary/78cace95f5444113f9f37d4c8527061dd402eb13.00020232.pdf
+ijs/content/51/1/257,tier4-stub,tier4-stub,tier4-stub,stub,yes,binary/78cace95f5444113f9f37d4c8527061dd402eb13.00020232.pdf
 ijs/content/51/1/259,tier4-stub,tier4-stub,tier4-stub,stub,yes,
 ijs/content/51/1/27,tier3-abstract,missing,tier3-abstract,abstract,yes,html/609885b9b4334c521d48e8959d21bed3da20b558.00005021.html
 ijs/content/51/1/3,tier3-abstract,missing,tier3-abstract,abstract,yes,html/dc754a35c7f38fb400d47f8c2456cbe5e7b36cb2.00005022.html
@@ -2568,7 +2568,7 @@ ijs/content/52/1/285,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf
 ijs/content/52/1/289,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,binary/5e57f09842d4132d992fb56edf894183593bd1be.00020591.pdf
 ijs/content/52/1/3,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,binary/78d4d940236fc7356797425365e82e94b78563cf.00020593.pdf
 ijs/content/52/1/5,tier2-pdf,tier4-stub,tier2-pdf(pdf only),summarized-pdf,no,html/f2b9e81d50085099a94c7011625ec140a0f70cb3.00028209.html
-ijs/content/52/1/7,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/532e5779a83d96fbe862c556fdf253fd5b672723.00028215.html
+ijs/content/52/1/7,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/532e5779a83d96fbe862c556fdf253fd5b672723.00028215.html
 ijs/content/52/1/77,tier2-pdf,tier3-abstract,tier2-pdf(abstract+pdf),summarized-pdf,no,html/f36170391a49979fe415ee68c628cdcf77201491.00005301.html
 ijs/content/52/1/85,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/d204f4548be3840f7cd014e035b75d8ba8c342d4.00005302.html
 ijs/content/52/1/91,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/7f9c08fa5491656f510d3777d39ab4c7a7e18f91.00000036.html
@@ -8901,7 +8901,7 @@ jmm/content/49/9/811,tier3-abstract,missing,tier3-abstract,abstract,yes,html/080
 jmm/content/49/9/817,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/351a869c8f1358504c4e70fad7328d7ec2d8980e.00048716.html
 jmm/content/49/9/823,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ecd08465300f61cb7e9cee573cba1573b99e0fbf.00048717.html
 jmm/content/49/9/827,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3d5e4d8bf3c3ee583ab569014248285de7545764.00048718.html
-jmm/content/49/9/831,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/1db447fa4f8cc86444dd76b1aa4b005ad1d7b415.00048719.html
+jmm/content/49/9/831,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1db447fa4f8cc86444dd76b1aa4b005ad1d7b415.00048719.html
 jmm/content/49/9/841,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d3cb6ffe327acc9e320a0685ad379195a2ef3be5.00048720.html
 jmm/content/49/9/845,tier3-abstract,missing,tier3-abstract,abstract,yes,html/fc4c8ff01752777a35aee80460a42229a8baa643.00048721.html
 jmm/content/49/9/848,tier4-stub,missing,tier4-stub,stub,yes,
@@ -13086,7 +13086,7 @@ mic/content/143/6/1805,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d
 mic/content/143/6/1815,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d9385617704dd68ea306fff3a2cd54b37c623d1d.00065504.html
 mic/content/143/6/1827,tier3-abstract,missing,tier3-abstract,abstract,yes,html/cb7d154462407dc35131d501895d72df045a4fb5.00065505.html
 mic/content/143/6/1837,tier3-abstract,missing,tier3-abstract,abstract,yes,html/4a49bb60a037ce4d766ec040559ada53aa3beaa0.00065506.html
-mic/content/143/6/1847,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/368cb5825add866812dd02d7b259f6f9a3e4f877.00065507.html
+mic/content/143/6/1847,tier3-abstract,missing,tier3-abstract,abstract,yes,html/368cb5825add866812dd02d7b259f6f9a3e4f877.00065507.html
 mic/content/143/6/1855,tier3-abstract,missing,tier3-abstract,abstract,yes,html/38b4d6616b9587d94f7c685147cfd8f672490c04.00065508.html
 mic/content/143/6/1861,tier3-abstract,missing,tier3-abstract,abstract,yes,html/81dead1a74006bc66b988d044de9b29bee4c29e0.00065509.html
 mic/content/143/6/1867,tier3-abstract,missing,tier3-abstract,abstract,yes,html/39467051eea87ff1ec2312c427ce02092562d264.00065511.html
@@ -13230,7 +13230,7 @@ mic/content/144/1/5,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,bina
 mic/content/144/1/55,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1d5339d0050ede50b1b6fe6b6551dde7c595bcb2.00065725.html
 mic/content/144/1/73,tier3-abstract,missing,tier3-abstract,abstract,yes,html/dbc106f04137ec850460397f35682a82adc68ad9.00065727.html
 mic/content/144/1/91,tier3-abstract,missing,tier3-abstract,abstract,yes,html/db33b78df037ce6eb48fe31cf5612fad62eb0291.00065728.html
-mic/content/144/10/2673,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,binary/f4629ee986c21b18e1791edd2b8aa464c785a6d3.00082075.pdf
+mic/content/144/10/2673,tier4-stub,missing,tier4-stub,stub,yes,binary/f4629ee986c21b18e1791edd2b8aa464c785a6d3.00082075.pdf
 mic/content/144/10/2679,tier3-abstract,missing,tier3-abstract,abstract,yes,html/2f055e466deeda9ee8fb26646970132184bef37b.00065625.html
 mic/content/144/10/2687,tier3-abstract,missing,tier3-abstract,abstract,yes,html/b37f20246a47bbf3cfb098791a84fa40cd33fa0a.00065626.html
 mic/content/144/10/2697,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d28e18fe0d64dfcb8e9b152f0c354231db7fe8ad.00065627.html
@@ -13694,7 +13694,7 @@ mic/content/145/2/367,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3a
 mic/content/145/2/379,tier3-abstract,missing,tier3-abstract,abstract,yes,html/dfbe7866c89aa16a2419d4f4b675fedd14faf2c5.00066096.html
 mic/content/145/2/389,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/77f688e2197ac6c30998089726f06aa8d90f2f92.00066098.html
 mic/content/145/2/401,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3d314a54a3f8ac1ceed8f00f054a59460ea235fb.00066100.html
-mic/content/145/2/411,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/10249cce0f5d12cc2cce8d3c2c50e6c9c562039d.00066101.html
+mic/content/145/2/411,tier3-abstract,missing,tier3-abstract,abstract,yes,html/10249cce0f5d12cc2cce8d3c2c50e6c9c562039d.00066101.html
 mic/content/145/2/419,tier3-abstract,tier1-full,tier3-abstract,abstract,yes,html/34d6c31a34576a2bcdc2d27542a866db8d15b4b0.00066102.html
 mic/content/145/2/427,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/0f82efd13785b63497fd1a5af3814abfd043686f.00066103.html
 mic/content/145/2/437,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/5d6172ef641ee4340709b3779637ad772f669ee3.00066104.html
@@ -13823,7 +13823,7 @@ mic/content/145/7/1631,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d
 mic/content/145/7/1641,tier3-abstract,missing,tier3-abstract,abstract,yes,html/011a109124fe91047cf196cf165bcf2a4a924764.00066227.html
 mic/content/145/7/1649,tier3-abstract,missing,tier3-abstract,abstract,yes,html/aaa5629686abee8d60c5d76b55f8e68791f4d38f.00066228.html
 mic/content/145/7/1661,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/cab529d7659a4dff57d611003718f36138de4948.00066229.html
-mic/content/145/7/1671,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/ec63d471af00e25062e231b88e75c98ee6a61964.00066230.html
+mic/content/145/7/1671,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ec63d471af00e25062e231b88e75c98ee6a61964.00066230.html
 mic/content/145/7/1683,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1de3deea0a9697ddc97b0bd70bd5efb653f72abb.00066231.html
 mic/content/145/7/1695,tier3-abstract,missing,tier3-abstract,abstract,yes,html/94405a2bb3abfb931b295e6d2d222408dffb1dee.00066232.html
 mic/content/145/7/1703,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ddf36a8c88b4b16265c7f342a89291fe9e8d8525.00036903.html
@@ -13863,7 +13863,7 @@ mic/content/145/8/2033,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3
 mic/content/145/8/2043,tier3-abstract,missing,tier3-abstract,abstract,yes,html/0eb5653683c1af58969f516111c71600c0274ac6.00066266.html
 mic/content/145/8/2051,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d27726cc58defe0d2c7b047bb7c030fce9cdb19b.00066267.html
 mic/content/145/8/2061,tier3-abstract,missing,tier3-abstract,abstract,yes,html/a8bd55a90ad0dd24b3d4db2756b3b1777a467314.00066268.html
-mic/content/145/8/2069,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/8726d6a8d9e688ed27ec86ae6447e0ad3f6acbec.00066269.html
+mic/content/145/8/2069,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/8726d6a8d9e688ed27ec86ae6447e0ad3f6acbec.00066269.html
 mic/content/145/8/2077,tier3-abstract,missing,tier3-abstract,abstract,yes,html/60d9c525d7cdafada5f912e497f346a3bfe06007.00066270.html
 mic/content/145/8/2087,tier3-abstract,missing,tier3-abstract,abstract,yes,html/dcef4255969d886c42696a6098fb397766e3e987.00066271.html
 mic/content/145/8/2095,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ffa5d601e1c7cb020c0395c0a6b94310579d1eac.00066272.html
@@ -20491,7 +20491,7 @@ vir/content/45/2/323,tier3-abstract,missing,tier3-abstract,abstract,yes,html/38a
 vir/content/45/2/331,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d819a10394b9fce9e9ff8fa1114bd616fdac9093.00104134.html
 vir/content/45/2/341,tier3-abstract,missing,tier3-abstract,abstract,yes,html/2e42d8abf3d4395dd77fa3376ddb850c3d9df1bc.00104135.html
 vir/content/45/2/351,tier3-abstract,missing,tier3-abstract,abstract,yes,html/e3d66e2c1f991769a56c328b78ee52fc71b9e61b.00104136.html
-vir/content/45/2/371,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,binary/67a0720b9037eae000360866c666be5b1ce75d76.00129407.pdf
+vir/content/45/2/371,tier4-stub,missing,tier4-stub,stub,yes,binary/67a0720b9037eae000360866c666be5b1ce75d76.00129407.pdf
 vir/content/45/2/389,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d569558b82aa55a11a10677f16011453469c1f9c.00104137.html
 vir/content/45/2/397,tier3-abstract,missing,tier3-abstract,abstract,yes,html/75557b1c816d630a05e7393c6b56d6b7b6681bf9.00104138.html
 vir/content/45/2/407,tier3-abstract,missing,tier3-abstract,abstract,yes,html/7faf1e43bc92d5907934e7767be54ff400b21c88.00104139.html
@@ -22385,7 +22385,7 @@ vir/content/66/7/1533,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/66/7/1545,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/66/7/1553,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/66/7/1565,tier3-abstract,missing,tier3-abstract,abstract,yes,html/8c7311ebfc33620f4e97b331c242ead92970cc58.00105950.html
-vir/content/66/7/1575,tier2-pdf,tier4-stub,tier2-pdf(pdf only),summarized-pdf,no,binary/1c619b98fc3e65b20aeb00d46811c4864a3e9da4.00130950.pdf
+vir/content/66/7/1575,tier4-stub,tier4-stub,tier4-stub,stub,yes,binary/1c619b98fc3e65b20aeb00d46811c4864a3e9da4.00130950.pdf
 vir/content/66/7/1581,tier3-abstract,missing,tier3-abstract,abstract,yes,html/bf8dffa96ab80bbfc9e39b9c35e742ddd6cce329.00105951.html
 vir/content/66/7/1589,tier3-abstract,missing,tier3-abstract,abstract,yes,html/291dc4ce25326d4d83c57a6da674c0f26ac83589.00105952.html
 vir/content/66/7/1595,tier3-abstract,missing,tier3-abstract,abstract,yes,html/77bc0d60563da7876f5deae02e6804220962a033.00105953.html
@@ -26034,7 +26034,7 @@ vir/content/76/11/2653,tier3-abstract,missing,tier3-abstract,abstract,yes,html/0
 vir/content/76/11/2661,tier3-abstract,missing,tier3-abstract,abstract,yes,html/04735da5f54e4e274b8c926ec3341e82812f31f8.00109434.html
 vir/content/76/11/2669,tier3-abstract,missing,tier3-abstract,abstract,yes,html/8cb0667034d16dbbf578e74dc92740324f541232.00109435.html
 vir/content/76/11/2679,tier3-abstract,missing,tier3-abstract,abstract,yes,html/402f0e29d1daf33b870bfabb5270f3585792b750.00109436.html
-vir/content/76/11/2693,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/01d3982aa4394c7f103da3a86c263d2d6e484083.00109437.html
+vir/content/76/11/2693,tier3-abstract,missing,tier3-abstract,abstract,yes,html/01d3982aa4394c7f103da3a86c263d2d6e484083.00109437.html
 vir/content/76/11/2707,tier3-abstract,missing,tier3-abstract,abstract,yes,html/b815987227d136fd41d29de7873853fc6747cbe8.00109438.html
 vir/content/76/11/2717,tier3-abstract,missing,tier3-abstract,abstract,yes,html/08b3c4a6838eeaefb5c3b2c92bf3ff9b960f7925.00109439.html
 vir/content/76/11/2723,tier3-abstract,tier1-full,tier3-abstract,abstract,yes,html/a7e5d5efc7b3504f4f1b8ba40310c3381d1c56d7.00109440.html
@@ -26958,8 +26958,8 @@ vir/content/78/4/929,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d2d
 vir/content/78/4/941,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1c564a4be3fb567c5c9866d55acdf84c1c9ddbe0.00110336.html
 vir/content/78/4/947,tier3-abstract,missing,tier3-abstract,abstract,yes,html/4e8d39ce1bdaf6411a4aa22b214456447e6d9069.00110337.html
 vir/content/78/4/953,tier3-abstract,missing,tier3-abstract,abstract,yes,html/a6cc8432e60316a37138ffd83ede10fe0c2d2f59.00110338.html
-vir/content/78/4/965,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/31837045ba706fd66324ac3812e02f77111e6c62.00110339.html
-vir/content/78/4/975,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/1797c4d96f0493b4f7d469fd1d52e8024f029543.00110340.html
+vir/content/78/4/965,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/31837045ba706fd66324ac3812e02f77111e6c62.00110339.html
+vir/content/78/4/975,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1797c4d96f0493b4f7d469fd1d52e8024f029543.00110340.html
 vir/content/78/5/1007,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/78/5/1017,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/78/5/1025,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3a76b5aef655fa94f057f2040cfae69315460794.00110341.html
@@ -27393,7 +27393,7 @@ vir/content/79/5/1257,tier3-abstract,missing,tier3-abstract,abstract,yes,html/87
 vir/content/79/5/1265,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/8adda83ddf701d533de059a9c78c906b545f956b.00110752.html
 vir/content/79/5/1273,tier3-abstract,missing,tier3-abstract,abstract,yes,html/0119add9774722ff1ad56d667d423ffac046d310.00110753.html
 vir/content/79/5/1281,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/9a1d93b6ec8b1f75fdab115d89d03dd7f97deb65.00110754.html
-vir/content/79/5/1289,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/4da911c8abd6f17a826b4dcf93c720de3fca8f26.00110755.html
+vir/content/79/5/1289,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/4da911c8abd6f17a826b4dcf93c720de3fca8f26.00110755.html
 vir/content/79/5/1299,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1f3400c421d3e90158d443aad06a48635de38716.00110756.html
 vir/content/79/5/1309,tier3-abstract,missing,tier3-abstract,abstract,yes,html/fbc804159b79df3015aa96f8ce1d1b533758f2f3.00110757.html
 vir/content/79/5/947,tier4-stub,missing,tier4-stub,stub,yes,
@@ -27421,7 +27421,7 @@ vir/content/79/6/1461,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1a
 vir/content/79/6/1469,tier3-abstract,missing,tier3-abstract,abstract,yes,html/49f08f9e60f32c8f94fa0c687de7e2e3bc80aac8.00110776.html
 vir/content/79/6/1479,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ea023200cf9f7eacd59e391a963f602ab5643155.00110777.html
 vir/content/79/6/1487,tier3-abstract,missing,tier3-abstract,abstract,yes,html/8eb999c434d94ad715983e957663f173787d5ff7.00110778.html
-vir/content/79/6/1495,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/4da82d11dc0b2a1a146672251ef2d1566ac1afff.00110779.html
+vir/content/79/6/1495,tier3-abstract,missing,tier3-abstract,abstract,yes,html/4da82d11dc0b2a1a146672251ef2d1566ac1afff.00110779.html
 vir/content/79/6/1501,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/1804737c9318c31b686c51eb74aa06e3e2031d6b.00110780.html
 vir/content/79/6/1509,tier3-abstract,missing,tier3-abstract,abstract,yes,html/cfebb827f8c4e3c77f0133436a97360ef6a420ca.00110781.html
 vir/content/79/6/1519,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/8138ef5a3e781ee0980b1a8445207695dc80f08a.00110782.html
@@ -27482,7 +27482,7 @@ vir/content/79/8/1989,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3c
 vir/content/79/8/1997,tier3-abstract,missing,tier3-abstract,abstract,yes,html/8ec6173cc4b773be60c8212fc623710f573cffe2.00110834.html
 vir/content/79/8/2003,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/8d1e096ad33aaacd31153bdd335b74ef4582a848.00110835.html
 vir/content/79/8/2007,tier3-abstract,missing,tier3-abstract,abstract,yes,html/b75424785d00cbc1714937b7d0c511671b62cfee.00110836.html
-vir/content/79/8/2013,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/7a52a4ee0a2da8d0f73b5c73928a59a8fb17fb07.00110837.html
+vir/content/79/8/2013,tier3-abstract,missing,tier3-abstract,abstract,yes,html/7a52a4ee0a2da8d0f73b5c73928a59a8fb17fb07.00110837.html
 vir/content/79/8/2023,tier3-abstract,missing,tier3-abstract,abstract,yes,html/f236efe268aa0934b8761ee37f2c74bc8cbe4c6b.00110838.html
 vir/content/79/8/2027,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/da758ee592dd58bded86dbad71cbf87256a9ca86.00110839.html
 vir/content/79/8/2037,tier3-abstract,missing,tier3-abstract,abstract,yes,html/7621aa2e5e0498b24c0e265936a2c8edd5fea5d2.00110840.html
@@ -27490,7 +27490,7 @@ vir/content/79/8/2043,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html
 vir/content/79/8/2051,tier3-abstract,missing,tier3-abstract,abstract,yes,html/5fec48cb0b54865c47277bdb0a50dab814a618b4.00110842.html
 vir/content/79/8/2059,tier3-abstract,missing,tier3-abstract,abstract,yes,html/eef61fdecf136df81cf947182b2fdb960af71c39.00110843.html
 vir/content/79/8/2071,tier3-abstract,missing,tier3-abstract,abstract,yes,html/bf37198aed994d4a666d58f3c2aecfef0d5d5038.00110844.html
-vir/content/79/8/2079,tier2-pdf,missing,tier2-pdf(pdf only),summarized-pdf,no,html/23e876a09649885f081ae13edd2dc29ab36abef9.00110845.html
+vir/content/79/8/2079,tier4-stub,missing,tier4-stub,stub,yes,html/23e876a09649885f081ae13edd2dc29ab36abef9.00110845.html
 vir/content/79/9/2083,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/79/9/2093,tier3-abstract,missing,tier3-abstract,abstract,yes,html/0347f6f3b06878e2f872210a925db540376eed59.00110846.html
 vir/content/79/9/2099,tier3-abstract,missing,tier3-abstract,abstract,yes,html/7019cc69551991ca25a5232f79e9c67b9566f658.00110847.html
@@ -27678,7 +27678,7 @@ vir/content/80/12/3289,tier1-full,missing,tier1-full,rebuilt-full,yes,html/26ae9
 vir/content/80/12/3305,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/e6710795f0022f5851b36c98bba60a521ee96036.00115120.html
 vir/content/80/2/277,tier3-abstract,tier3-abstract,tier3-abstract,abstract,yes,html/3efefe4d97c1f6e43b06d44bb644752e9c60972c.00111002.html
 vir/content/80/2/283,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/6d08af5114e55ef87cd31b78291f63e6a6989119.00039364.html
-vir/content/80/2/291,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/3c70d8889d9271c8acf6f31091f1cb737615549c.00039365.html
+vir/content/80/2/291,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/3c70d8889d9271c8acf6f31091f1cb737615549c.00039365.html
 vir/content/80/2/297,tier3-abstract,missing,tier3-abstract,abstract,yes,html/1f9747e3e483a3f66c65084da6c9cbe3cc379b98.00111005.html
 vir/content/80/2/307,tier3-abstract,missing,tier3-abstract,abstract,yes,html/53eb1323a2d64b21fe267fbb3ea15dedec448697.00111006.html
 vir/content/80/2/317,tier3-abstract,missing,tier3-abstract,abstract,yes,html/436985d758487f6d3a522eabcdf2acf14929b139.00111007.html
@@ -27706,7 +27706,7 @@ vir/content/80/2/485,tier3-abstract,missing,tier3-abstract,abstract,yes,html/b7c
 vir/content/80/2/493,tier3-abstract,missing,tier3-abstract,abstract,yes,html/9e56978de748949363d90268225c9057c035cd75.00111029.html
 vir/content/80/2/501,tier3-abstract,missing,tier3-abstract,abstract,yes,html/19b122aa169b97e85019aff742d7e061aef2416f.00039373.html
 vir/content/80/2/507,tier2-pdf,tier3-abstract,tier2-pdf(abstract+pdf),summarized-pdf,no,html/589b60f964a89b66c79bb919bb292d49cb4a8790.00111031.html
-vir/content/80/2/517,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/3b2d1ba167f3ea03f2dd460642f8c1bec00368ff.00039374.html
+vir/content/80/2/517,tier3-abstract,missing,tier3-abstract,abstract,yes,html/3b2d1ba167f3ea03f2dd460642f8c1bec00368ff.00039374.html
 vir/content/80/3/525,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ee7dd50fbcbc0542996606aa15f5ef747f1d68c5.00111033.html
 vir/content/80/3/537,tier3-abstract,missing,tier3-abstract,abstract,yes,html/9b5babd238e828f5566aa4611553647959201ffe.00111034.html
 vir/content/80/3/543,tier3-abstract,missing,tier3-abstract,abstract,yes,html/249d1a1faf0f8be723b35ae4637b1d7be4deba9f.00111035.html
@@ -27750,7 +27750,7 @@ vir/content/80/4/1035,tier3-abstract,missing,tier3-abstract,abstract,yes,html/d3
 vir/content/80/4/1045,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/7c04e59e798d01929937b68e1595d7356b255e27.00111073.html
 vir/content/80/4/1055,tier3-abstract,missing,tier3-abstract,abstract,yes,html/9e6cd056bfa84526e152eaa895b340d65e5a80be.00111074.html
 vir/content/80/4/1067,tier3-abstract,missing,tier3-abstract,abstract,yes,html/ab550eb3d0dd526aff60698c12e2735253197a31.00111075.html
-vir/content/80/4/1073,tier2-pdf,tier4-stub,tier2-pdf(abstract+pdf),summarized-pdf,no,html/b989bdb09513fd1d5e9582b38b100c81ef38952e.00111076.html
+vir/content/80/4/1073,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/b989bdb09513fd1d5e9582b38b100c81ef38952e.00111076.html
 vir/content/80/4/1079,tier3-abstract,tier4-stub,tier3-abstract,abstract,yes,html/64aebfa307819eb234a42a797023341a4f028310.00111077.html
 vir/content/80/4/823,tier4-stub,missing,tier4-stub,stub,yes,
 vir/content/80/4/835,tier2-pdf,missing,tier2-pdf(abstract+pdf),summarized-pdf,no,html/08f0bd69a0ff26b3e1608197d2b895db30fc74b5.00111078.html
