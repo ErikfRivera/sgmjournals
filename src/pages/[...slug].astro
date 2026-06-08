@@ -5,9 +5,25 @@ import JournalHomeView from '../components/JournalHomeView.astro';
 import InfoView from '../components/InfoView.astro';
 import { getJournal } from '../lib/journals.js';
 
+import fs from 'node:fs';
+import path from 'node:path';
+
 export async function getStaticPaths() {
-  const mods = import.meta.glob('../data/generated/pages/**/*.json', { eager: true });
-  const entries = Object.values(mods).map((m) => m.default || m);
+  // Read generated entries from disk rather than import.meta.glob: at ~9k+ files
+  // the eager glob bundles into one module and overflows the call stack.
+  const PAGES_DIR = path.join(process.cwd(), 'src', 'data', 'generated', 'pages');
+  function walk(dir) {
+    const out = [];
+    if (!fs.existsSync(dir)) return out;
+    for (const name of fs.readdirSync(dir)) {
+      const p = path.join(dir, name);
+      const st = fs.statSync(p);
+      if (st.isDirectory()) out.push(...walk(p));
+      else if (name.endsWith('.json')) out.push(p);
+    }
+    return out;
+  }
+  const entries = walk(PAGES_DIR).map((f) => JSON.parse(fs.readFileSync(f, 'utf-8')));
 
   // Group articles by journal for journal-home listings.
   const byJournal = {};
@@ -18,6 +34,7 @@ export async function getStaticPaths() {
   }
   for (const k of Object.keys(byJournal)) {
     byJournal[k].sort((a, b) => (b.refdomains || 0) - (a.refdomains || 0));
+    byJournal[k] = byJournal[k].slice(0, 60); // cap related list passed as props
   }
 
   function yearOf(d) { const mm = String(d || '').match(/(\d{4})/); return mm ? mm[1] : ''; }
@@ -73,9 +90,11 @@ if (entry.type === 'article') {
 }
 
 const navActive = 'Journals';
-// Citation-only stubs are thin by design — keep them reachable (200 + canonical)
-// for backlink equity, but don't index them.
-const robots = entry.stub ? 'noindex,follow' : undefined;
+// Thin pages (explicit stubs, or articles where only citation metadata was
+// recovered) stay reachable (200 + canonical, so link equity still flows) but
+// are not indexed.
+const thin = entry.type === 'article' && !entry.bodyHtml && !entry.abstractHtml;
+const robots = (entry.stub || thin) ? 'noindex,follow' : undefined;
 ---
 <BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld} robots={robots}>
   {entry.type === 'article' && <ArticleView entry={entry} />}

@@ -47,7 +47,7 @@ for (const r of rows) {
   // strip variant suffixes so the stub lives at the clean canonical
   const page = rawPage.replace(/\.(full\.pdf\+html|full\.pdf|full|abstract|short|long|pdf)$/i, '');
   const slug = `${journal}/content/${vol}/${issue}/${page}`;
-  if (/[{}\[\]<>"'\s|\\^`%]/.test(slug)) continue; // skip malformed backlink URLs
+  if (/[{}\[\]<>"'\s|\\^`%?#]/.test(slug)) continue; // skip malformed backlink URLs
 
   // redirect any suffixed/variant form of this stub to its clean canonical
   const base = `/${slug}`;

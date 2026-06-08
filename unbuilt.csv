@@ -954,7 +954,7 @@ url,type,reason
 "https://www.sgmjournals.org/ijsb/content/58/5/1221",article-full,not-in-archive
 "https://www.sgmjournals.org/jmmcr/content/journal/jmmcr/past-issues/index.html",article,not-in-archive
 "https://www.sgmjournals.org/ijs/content/39/4/373",article-pdf,not-in-archive
-"https://www.sgmjournals.org/vir/cgi/ijlink%3FlinkType=ABST",other,not-in-archive
+"https://www.sgmjournals.org/vir/cgi/ijlink%3FlinkType=ABST",other,malformed-url
 "https://www.sgmjournals.org/vir/content/90/10/2375",article-full,not-in-archive
 "https://www.sgmjournals.org/mic/cgi/issue_pdf/backmatter_pdf/37/3.pdf",article-pdf,not-in-archive
 "https://www.sgmjournals.org/vir/content/92/2/370",article-abstract,not-in-archive

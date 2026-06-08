@@ -77,9 +77,28 @@ These fire only for hosts whose DNS is proxied through Cloudflare. The in-site
 variant → canonical redirects (`public/_redirects`) handle the path-level
 canonicalization after the host rewrite.
 
+## Pipeline order
+
+```bash
+npm run ingest          # Phase 1-2: backlinked manifest (3,423 pages)
+node scripts/phase4.mjs # Phase 4: bounded sweep of remaining archive articles
+node scripts/phase3.mjs # Phase 3: pmidlookup resolver + citation stubs
+node scripts/phase5.mjs # Phase 5: sitemap.xml, robots.txt, build-report.md
+npm run build           # astro build -> dist/  (the deploy artifact)
+```
+
+Run phase4 before phase3 so stubs only fill genuine gaps. `npm run build` raises
+the Node heap (`--max-old-space-size`) because getStaticPaths loads all generated
+entries from disk.
+
 ## Status
 
-Phase 0 (scaffold + ingest) and Phase 1 (site root + journal homes) complete;
-articles render end-to-end. The pipeline walks the manifest top-to-bottom by
-referring-domain rank. See the PRD in the cowork input directory for the full
-phase plan.
+All phases complete. ~9,100 pages built: ~4,750 indexable full-text articles +
+journal homes + info pages, plus ~4,360 noindex citation-only / metadata-only
+pages (kept reachable with `rel=canonical` so backlink equity still flows).
+~88,000 variant→canonical redirects. See `build-report.md` for current counts and
+`unbuilt.csv` for rows with no recovered source.
+
+Phase 4 is a **bounded** sweep (distinct articles with recovered full text); the
+~130K raw HTML rows include variant/figure/TOC files that are intentionally not
+turned into pages.

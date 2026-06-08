@@ -88,8 +88,10 @@ export function copyAsset(row, journal) {
 }
 
 export function assetWebPath(row, journal) {
-  // /assets/<journal><request_uri>
-  const uri = row.request_uri.startsWith('/') ? row.request_uri : '/' + row.request_uri;
+  // /assets/<journal><request_uri> — strip any query/fragment so it never
+  // becomes a "?"-named path on disk (breaks Astro's empty-dir cleanup).
+  let uri = row.request_uri.replace(/[?#].*$/, '');
+  if (!uri.startsWith('/')) uri = '/' + uri;
   const prefix = journal ? `/${journal}` : '';
   return `/assets${prefix}${uri}`;
 }

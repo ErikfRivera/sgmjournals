@@ -226,12 +226,20 @@ for (const row of rows) {
     }
   }
 
+  // Strip any query string / fragment that leaked into the path (e.g. a
+  // "?ck=nck" cache-buster). A "?" in a filesystem path also breaks Astro's
+  // URL-based empty-dir cleanup, so this must never reach the output.
+  {
+    const stripped = slug.replace(/[?#].*$/, '').replace(/\/+$/, '');
+    if (stripped !== slug) { addRedirect('/' + slug, '/' + stripped); slug = stripped; }
+  }
+
   // Some backlink target URLs carry junk (e.g. ".../463}}[]" from broken
   // referrers). Don't mint a page for those — redirect the junk to the clean
   // path (which its own manifest row builds) and skip.
   let decoded = slug; try { decoded = decodeURIComponent(slug); } catch {}
-  if (/[{}\[\]<>"'\s|\\^`]/.test(decoded)) {
-    const clean = decoded.replace(/[{}\[\]<>"'\s|\\^`].*$/, '').replace(/\/+$/, '');
+  if (/[{}\[\]<>"'\s|\\^`?#]/.test(decoded)) {
+    const clean = decoded.replace(/[{}\[\]<>"'\s|\\^`?#].*$/, '').replace(/\/+$/, '');
     if (clean && clean !== slug) addRedirect('/' + slug, '/' + clean);
     recordUnbuilt(row, 'malformed-url');
     continue;
