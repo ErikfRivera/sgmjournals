@@ -86,6 +86,17 @@
 .abstract-block h2 { font-family: var(--font-sans); font-size: var(--fs-h4); font-weight: var(--fw-semibold); color: var(--text-heading); margin: 0 0 var(--sp-3); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; font-size: var(--fs-eyebrow); }
 .abstract-block .prose { font-size: var(--fs-body-lg); }
 
+/* auto-generated PDF summary (Tier 2) */
+.summary-block { background: var(--surface-2); border: 1px solid var(--border); border-left: 3px solid var(--acc, var(--brand-primary)); border-radius: var(--radius-lg); padding: var(--sp-6); margin-bottom: var(--sp-6); max-width: var(--container-text); }
+.summary-block h2 { font-family: var(--font-sans); font-weight: var(--fw-semibold); color: var(--text-heading); margin: 0 0 var(--sp-3); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; font-size: var(--fs-eyebrow); display: flex; align-items: center; gap: var(--sp-2); }
+.summary-block .summary-tag { text-transform: none; letter-spacing: 0; font-size: var(--fs-meta); font-weight: var(--fw-regular); color: var(--text-muted); background: var(--surface-3); padding: 2px 8px; border-radius: var(--radius-sm); }
+.summary-block .summary-note { font-family: var(--font-sans); font-size: var(--fs-meta); color: var(--text-muted); margin: var(--sp-3) 0 0; }
+
+/* old-format float captions & footnotes */
+.prose .article-float-caption { font-family: var(--font-sans); font-size: var(--fs-body-sm); color: var(--text-muted); border-left: 2px solid var(--border); padding-left: var(--sp-3); margin: var(--sp-5) 0; }
+.prose .article-footnotes { margin-top: var(--sp-7); padding-top: var(--sp-5); border-top: 1px solid var(--border); font-size: var(--fs-body-sm); color: var(--text-muted); }
+.prose .article-footnotes h2 { font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: var(--ls-eyebrow); }
+
 /* figures */
 .prose figure, .prose .fig { margin: var(--sp-6) 0; }
 .prose figure img, .prose .fig img { max-width: 100%; height: auto; display: block; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--white); }

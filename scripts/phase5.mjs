@@ -23,7 +23,9 @@ function walk(dir) {
 
 const files = fs.existsSync(PAGES_DIR) ? walk(PAGES_DIR) : [];
 const urls = new Set([`${SITE}/`]);
-JOURNAL_ORDER.forEach((j) => urls.add(`${SITE}/${j}/`));
+// Slash-free to match the journal-home canonical (trailingSlash:false); avoids
+// listing both /vir and /vir/ for the same page.
+JOURNAL_ORDER.forEach((j) => urls.add(`${SITE}/${j}`));
 
 const typeCounts = {};
 const journalCounts = {};

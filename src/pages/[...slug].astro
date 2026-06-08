@@ -65,9 +65,10 @@ let title, description, jsonld;
 if (entry.type === 'article') {
   const m = entry.meta || {};
   title = m.title;
-  // meta description from abstract first sentence, stripped of tags
+  // meta description from abstract first sentence, then summary, stripped of tags
   const absText = (entry.abstractHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  description = absText ? absText.slice(0, 280) : `${m.title} — ${m.journalTitle || (j ? j.name : '')}${m.volume ? `, volume ${m.volume}` : ''}.`;
+  const sumText = (entry.summaryHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  description = (absText || sumText) ? (absText || sumText).slice(0, 280) : `${m.title} — ${m.journalTitle || (j ? j.name : '')}${m.volume ? `, volume ${m.volume}` : ''}.`;
   jsonld = {
     '@context': 'https://schema.org',
     '@type': 'ScholarlyArticle',
@@ -79,6 +80,7 @@ if (entry.type === 'article') {
     issueNumber: m.issue,
     pagination: m.firstpage,
     identifier: m.doi ? { '@type': 'PropertyValue', propertyID: 'DOI', value: m.doi } : undefined,
+    description: (absText || sumText) ? (absText || sumText).slice(0, 5000) : undefined,
     url: entry.canonical,
   };
 } else if (entry.type === 'journal-home') {

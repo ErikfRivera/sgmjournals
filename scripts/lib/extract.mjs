@@ -2,19 +2,27 @@
 import * as cheerio from 'cheerio';
 import { resolveAsset, copyAsset, lookupLoose } from './db.mjs';
 import { hostToJournal } from './paths.mjs';
+import { isOldFormat, extractOldArticle } from './oldformat.mjs';
 
 // ---- metadata -------------------------------------------------------------
 export function extractMeta(html) {
   const $ = cheerio.load(html);
+  // Index every <meta name> by lowercased name. HighWire markup is inconsistent
+  // about case (dc.Contributor vs DC.Contributor, citation_Author …) and CSS
+  // attribute-value matching is case-sensitive, so collect case-insensitively.
+  const byName = new Map();
+  $('meta[name]').each((_, e) => {
+    const nm = ($(e).attr('name') || '').trim().toLowerCase();
+    if (!nm) return;
+    const c = ($(e).attr('content') || '').trim();
+    if (!byName.has(nm)) byName.set(nm, []);
+    byName.get(nm).push(c);
+  });
   const get = (name) => {
-    const el = $(`meta[name="${name}"]`).first();
-    return el.length ? (el.attr('content') || '').trim() : '';
+    const v = byName.get(name.toLowerCase());
+    return v && v.length ? (v[0] || '').trim() : '';
   };
-  const getAll = (name) =>
-    $(`meta[name="${name}"]`)
-      .map((_, e) => ($(e).attr('content') || '').trim())
-      .get()
-      .filter(Boolean);
+  const getAll = (name) => (byName.get(name.toLowerCase()) || []).map((s) => s.trim()).filter(Boolean);
 
   let authors = getAll('citation_author');
   if (!authors.length) authors = getAll('DC.Contributor');
@@ -191,7 +199,7 @@ export function extractArticle(html, ctx) {
     rewriteLinks($, $ft, ctx);
     bodyHtml = cleanHtml($, $ft);
   } else {
-    // Abstract-only page: try the abstract block on its own
+    // Abstract-only page (modern markup): try the abstract block on its own
     const $absView = $('.abstract, .section.abstract, #abstract-1').first();
     if ($absView.length) {
       const $c = $absView.clone();
@@ -199,6 +207,17 @@ export function extractArticle(html, ctx) {
       $c.find('h2').first().remove();
       abstractHtml = cleanHtml($, $c);
     }
+  }
+
+  // Old-format HighWire fallback: the archive captured the legacy anchor-based
+  // markup (id="ABS"/"SEC1"/"BIBL") for which none of the modern selectors match.
+  // If we got nothing usable above and this is old-format, parse it that way.
+  if (!bodyHtml && !abstractHtml && isOldFormat(html)) {
+    const old = extractOldArticle(html, ctx);
+    if (old.abstractHtml) abstractHtml = old.abstractHtml;
+    if (old.bodyHtml) bodyHtml = old.bodyHtml;
+    if (old.referencesHtml) referencesHtml = old.referencesHtml;
+    if (old.correspHtml && !correspHtml) correspHtml = old.correspHtml;
   }
 
   // PDF availability: look up the recovered full.pdf

@@ -53,8 +53,15 @@ const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
 
 <div class="sgm-container article-body-grid" style={`--acc:${accent}`}>
   <article>
-    {!entry.bodyHtml && !entry.abstractHtml && (
+    {!entry.bodyHtml && !entry.abstractHtml && !entry.summaryHtml && (
       <div class="notice"><strong>Full text not available.</strong> This article's full text was not recovered in the archive. The citation and links above point to the published record.</div>
+    )}
+    {entry.summaryHtml && (
+      <section class="summary-block">
+        <h2>Summary <span class="summary-tag">auto-generated</span></h2>
+        <div class="prose" set:html={entry.summaryHtml}></div>
+        <p class="summary-note">This summary was generated automatically from the article PDF and is not part of the original publication. Refer to the PDF for the authoritative text.</p>
+      </section>
     )}
     {entry.abstractHtml && (
       <section class="abstract-block">
