@@ -1,8 +1,9 @@
-// Minimal RFC4180 CSV parser (handles quoted fields with commas/newlines).
+// Minimal RFC4180 CSV/TSV parser (handles quoted fields with delimiters/newlines).
 import fs from 'node:fs';
 
-export function parseCsv(filePath) {
-  const text = fs.readFileSync(filePath, 'utf-8');
+export function parseCsv(filePath, opts = {}) {
+  const { delimiter = ',', encoding = 'utf-8' } = opts;
+  const text = fs.readFileSync(filePath, encoding);
   const rows = [];
   let field = '';
   let row = [];
@@ -16,7 +17,7 @@ export function parseCsv(filePath) {
       } else field += c;
     } else {
       if (c === '"') inQuotes = true;
-      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === delimiter) { row.push(field); field = ''; }
       else if (c === '\r') { /* skip */ }
       else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
       else field += c;

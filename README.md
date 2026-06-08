@@ -83,22 +83,42 @@ canonicalization after the host rewrite.
 npm run ingest          # Phase 1-2: backlinked manifest (3,423 pages)
 node scripts/phase4.mjs # Phase 4: bounded sweep of remaining archive articles
 node scripts/phase3.mjs # Phase 3: pmidlookup resolver + citation stubs
+node scripts/aliases.mjs# Recreate a real page at every Ahrefs backlink-target URL
 node scripts/phase5.mjs # Phase 5: sitemap.xml, robots.txt, build-report.md
-npm run build           # astro build -> dist/  (the deploy artifact)
+npm run build           # astro build -> dist/
 ```
 
-Run phase4 before phase3 so stubs only fill genuine gaps. `npm run build` raises
-the Node heap (`--max-old-space-size`) because getStaticPaths loads all generated
-entries from disk.
+Run phase4 before phase3 (stubs fill genuine gaps) and aliases after both
+(it reuses the canonical content). `npm run build` raises the Node heap
+(`--max-old-space-size`) because getStaticPaths loads all generated entries.
+
+## Backlinked URLs are recreated, not redirected
+
+Every distinct target URL in the Ahrefs export is rebuilt as a **real 200 page**
+at its in-site path (after the Cloudflare host→`/<journal>/` rewrite): article
+variants (`.full`, `.abstract`, `.short`, `.long`, `cgi/content/full|abstract|…`,
+`cgi/reprint`) render the same content as their canonical and carry
+`rel="canonical"` → the clean URL; `.full.pdf` URLs serve the recovered PDF; info
+/ misc pages are rebuilt from the archive (or a minimal stub when not recovered).
+These recreated pages are excluded from `sitemap.xml` (the canonical is listed).
+There are **no in-site variant→canonical redirects** — the only redirects are the
+host-level subdomain→`www` rules in Cloudflare (documented below).
+
+## Deploy (Vercel, from Git)
+
+`vercel.json` configures a Git-driven build: `npm run build`, output `dist/`.
+The generated data and assets are committed so Vercel builds without the archive.
+`npm install --omit=dev` skips the ingest-only native deps (better-sqlite3,
+cheerio) — run a full `npm install` locally before re-running the pipeline.
 
 ## Status
 
-All phases complete. ~9,100 pages built: ~4,750 indexable full-text articles +
-journal homes + info pages, plus ~4,360 noindex citation-only / metadata-only
-pages (kept reachable with `rel=canonical` so backlink equity still flows).
-~88,000 variant→canonical redirects. See `build-report.md` for current counts and
+All phases complete. ~14,000 pages built: ~4,750 indexable canonical pages
+(full-text articles + journal homes + info pages), ~4,360 noindex citation/
+metadata-only pages, and ~5,000 recreated backlink-variant pages (real 200s with
+`rel=canonical` to the clean URL). See `build-report.md` for current counts and
 `unbuilt.csv` for rows with no recovered source.
 
 Phase 4 is a **bounded** sweep (distinct articles with recovered full text); the
-~130K raw HTML rows include variant/figure/TOC files that are intentionally not
+~130K raw HTML rows include figure/expansion/TOC files that are intentionally not
 turned into pages.

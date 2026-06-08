@@ -1,18 +1,23 @@
 # dependencies
 node_modules/
 
-# build output
+# build output (Vercel rebuilds from committed source + generated data)
 dist/
 .astro/
-
-# generated content + assets (regenerated from the archive by scripts/ingest.mjs)
-src/data/generated/
-public/assets/
-public/_redirects
-public/sitemap.xml
-public/robots.txt
 
 # tooling / scratch
 .playwright-mcp/
 *.log
 .DS_Store
+
+# vercel
+.vercel/
+
+# Cloudflare-style redirects file — unused now that backlink variants are
+# recreated as real pages; not deployed to Vercel.
+public/_redirects
+
+# NOTE: src/data/generated/, public/assets/, public/sitemap.xml and
+# public/robots.txt ARE committed so Vercel can build the site from Git without
+# the source archive. Regenerate locally with:
+#   npm run ingest && node scripts/phase4.mjs && node scripts/phase3.mjs && node scripts/aliases.mjs && node scripts/phase5.mjs

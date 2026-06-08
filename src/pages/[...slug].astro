@@ -28,7 +28,7 @@ export async function getStaticPaths() {
   // Group articles by journal for journal-home listings.
   const byJournal = {};
   for (const e of entries) {
-    if (e.type === 'article') {
+    if (e.type === 'article' && !e.alias) {
       (byJournal[e.journal] ||= []).push(e);
     }
   }
