@@ -1,0 +1,13 @@
+{
+  "chrome": [
+    "https://www.sgmjournals.org/jmm/misc/subonline.shtml :: highwire",
+    "https://www.sgmjournals.org/jmm/subscriptions/trial.shtml :: highwire",
+    "https://www.sgmjournals.org/mic/misc/self_archiving.dtl :: highwire",
+    "https://www.sgmjournals.org/mic/misc/ifora.shtml :: highwire",
+    "https://www.sgmjournals.org/mic/misc/subonline.shtml :: highwire",
+    "https://www.sgmjournals.org/mic/misc/news_300606.dtl :: highwire",
+    "https://www.sgmjournals.org/vir/misc/ifora.shtml :: highwire",
+    "https://www.sgmjournals.org/vir/misc/subonline.shtml :: highwire",
+    "https://www.sgmjournals.org/ijs/misc/subonline.shtml :: highwire"
+  ]
+}

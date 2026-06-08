@@ -44,6 +44,15 @@ function isResolvable(p) {
   return resolvable.has(q) || fileSet.has(q);
 }
 
+// A link is truly external only if it has a real scheme, or is protocol-relative
+// (//host/…) with a real domain (a dotted host). A "//misc/forms.xhtml"-style
+// link points at a bogus host ("misc") — a mangled internal link, not external.
+function isExternal(href) {
+  if (/^(https?:|ftp:|mailto:|tel:|#|data:)/i.test(href)) return true;
+  if (/^\/\//.test(href)) return href.slice(2).split(/[/?#]/)[0].includes('.');
+  return false;
+}
+
 const stripVar = (s) => s.replace(/\.(full\.pdf\+html|full\.pdf|full|abstract|short|long|pdf)$/i, '').replace(/\/+$/, '');
 function normalizeHref(href) {
   let m;
@@ -60,10 +69,15 @@ const FIELDS = ['bodyHtml', 'abstractHtml', 'referencesHtml', 'affiliationsHtml'
 let entriesChanged = 0, linksKept = 0, linksNormalized = 0, linksUnwrapped = 0;
 
 let imgsDropped = 0;
+let h1sDemoted = 0;
 function processField(htmlStr) {
-  if (!htmlStr || (!htmlStr.includes('<a') && !htmlStr.includes('<img'))) return htmlStr;
+  if (!htmlStr || (!htmlStr.includes('<a') && !htmlStr.includes('<img') && !/<h1[\s>]/i.test(htmlStr))) return htmlStr;
   const $ = cheerio.load(htmlStr, null, false);
   let changed = false;
+  // The page layout already renders the single <h1> (entry.title). Any <h1>
+  // inside recovered body content would make a second top-level heading, so
+  // demote it to <h2> to keep one logical heading root per page.
+  $('h1').each((_, el) => { el.tagName = 'h2'; changed = true; h1sDemoted++; });
   // drop broken internal images (chrome icons/spacers/banners not in output)
   $('img[src]').each((_, el) => {
     const src = $(el).attr('src');
@@ -73,7 +87,7 @@ function processField(htmlStr) {
   $('a[href]').each((_, el) => {
     const $a = $(el);
     let href = $a.attr('href');
-    if (/^(https?:|ftp:|mailto:|tel:|#|data:|\/\/)/i.test(href)) { linksKept++; return; } // external/anchor
+    if (isExternal(href)) { linksKept++; return; } // external/anchor
     if (!href.startsWith('/')) { $a.replaceWith($a.html() || $a.text()); changed = true; linksUnwrapped++; return; } // junk (C:\, bare host)
     const bare = href.split('#')[0].split('?')[0];
     const normd = normalizeHref(bare);
@@ -82,6 +96,19 @@ function processField(htmlStr) {
     } else {
       $a.replaceWith($a.html() || $a.text()); changed = true; linksUnwrapped++;
     }
+  });
+  // <area href> image-map links (leftover HighWire "home_button" chrome): an
+  // area with a dead internal href is still a broken link. Normalize if it
+  // resolves; otherwise drop the element (a hrefless area is meaningless).
+  $('area[href]').each((_, el) => {
+    const $a = $(el);
+    const href = $a.attr('href');
+    if (isExternal(href)) { linksKept++; return; }
+    const bare = href.split('#')[0].split('?')[0];
+    const normd = normalizeHref(bare);
+    if (href.startsWith('/') && isResolvable(normd)) {
+      if (normd !== href) { $a.attr('href', normd); changed = true; linksNormalized++; } else linksKept++;
+    } else { $a.remove(); changed = true; linksUnwrapped++; }
   });
   return changed ? $.html() : htmlStr;
 }

@@ -80,15 +80,22 @@ canonicalization after the host rewrite.
 ## Pipeline order
 
 ```bash
-npm run ingest             # Phase 1-2: backlinked manifest (3,423 pages)
-node scripts/phase4.mjs    # Phase 4: bounded sweep of remaining archive articles
-node scripts/repair-meta.mjs  # re-extract metadata for login-walled variants (CrossRef fallback)
-node scripts/phase3.mjs    # Phase 3: pmidlookup resolver + citation stubs
-node scripts/aliases.mjs   # recreate a real page at every Ahrefs backlink-target URL
-node scripts/fix-links.mjs # normalize/strip in-body links (zero broken internal links)
-node scripts/phase5.mjs    # sitemap.xml, robots.txt, build-report.md
-npm run build              # astro build -> dist/
-node scripts/qa.mjs && node scripts/qa-content.mjs   # QA gates
+npm run ingest                     # Phase 1-2: backlinked manifest (charset-aware decode)
+node scripts/phase4.mjs            # Phase 4: bounded sweep of remaining archive articles
+node scripts/repair-meta.mjs       # re-extract metadata for login-walled variants (CrossRef fallback)
+node scripts/recover-meta.mjs      # gap-fill authors/title/DOI from sibling captures (no fabrication)
+node scripts/repair-charset.mjs    # safety net: repair any U+FFFD/mojibake from source
+node scripts/phase3.mjs            # Phase 3: pmidlookup resolver + citation stubs
+node scripts/aliases.mjs           # recreate a real page at every Ahrefs backlink-target URL
+node scripts/fix-variant-canonical.mjs  # variant self-canonical -> clean base
+node scripts/fix-doi-canonical.mjs      # de-dup lifecycle/format URLs to one canonical by DOI
+node scripts/fix-links.mjs         # normalize/strip in-body links (a/area), demote body <h1> (0 broken)
+node scripts/fix-info-titles.mjs   # descriptive unique info-page titles; noindex thin tool/feed pages
+node scripts/fix-noindex-fragments.mjs  # noindex figure/table/suppl fragment pages
+node scripts/phase5.mjs            # sitemap.xml (canonical-only), robots.txt, build-report.md
+npm run build                      # astro build -> dist/
+# QA (deep, page-by-page): see qa/ — resolve.py, check_links.py, scan_pages.py,
+# check_canonical.py, check_fidelity.py, per_page_report.py  → qa/qa-report.md
 ```
 
 Order matters: repair-meta after phase4 (fixes canonicals before aliases copy

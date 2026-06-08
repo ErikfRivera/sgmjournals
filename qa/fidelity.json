@@ -1,0 +1,61 @@
+{
+  "sampled": 491,
+  "mismatch_counts": {
+    "title": 3,
+    "doi": 0,
+    "volume": 0,
+    "firstpage": 0,
+    "no_source": 215,
+    "body_missing": 0
+  },
+  "samples": {
+    "title": [
+      [
+        "jmm/content/56/1/52",
+        "Real-time TaqMan PCR for rapid detection and typing of genes encoding CTX-M extended-spectrum {beta}-lactamases",
+        "Real-time TaqMan PCR for rapid detection and typing of genes encoding CTX-M extended-spectrum \u03b2-lactamases"
+      ],
+      [
+        "mic/content/153/10/3211",
+        "Candida albicans drug resistance another way to cope with stress",
+        "Candida albicans drug resistance \u2013 another way to cope with stress"
+      ],
+      [
+        "vir/content/89/4/1036",
+        "Occurrence, function and evolutionary origins of '2A-like' sequences in virus genomes",
+        "Occurrence, function and evolutionary origins of \u20182A-like\u2019 sequences in virus genomes"
+      ]
+    ],
+    "doi": [],
+    "volume": [],
+    "firstpage": [],
+    "no_source": [
+      "mic/content/145/8/1817",
+      "ijs/content/49/3/1119",
+      "vir/content/83/6/1253.full.pdf",
+      "mic/content/mic.0.053959-0",
+      "ijs/content/45/1/195",
+      "ijs/content/45/1/186",
+      "ijs/content/47/2/479",
+      "ijs/content/47/2/590",
+      "mic/content/141/12/3015",
+      "mic/content/141/12/3015.full.pdf+html",
+      "ijs/content/52/6/2035",
+      "jmm/content/jmm.0.048090-0",
+      "vir/content/77/9/2059",
+      "ijs/content/63/Pt_7/2463.full.pdf",
+      "ijs/content/47/3/908",
+      "ijs/content/47/3/908.full.pdf+html",
+      "ijs/content/48/3/859.full.pdf",
+      "ijs/content/48/3/859",
+      "vir/content/76/11/2633",
+      "ijs/content/28/1/1",
+      "ijs/content/28/1/1.full.pdf",
+      "ijs/content/30/1/225",
+      "ijs/content/47/2/548",
+      "ijs/content/50/3/1351",
+      "ijs/content/34/3/355"
+    ],
+    "body_missing": []
+  }
+}

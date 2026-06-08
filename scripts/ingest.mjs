@@ -11,7 +11,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseCsv } from './lib/csv.mjs';
-import { lookupLoose, readHtml, copyAsset, fileForRow } from './lib/db.mjs';
+import { lookupLoose, readHtml, copyAsset, fileForRow, decodeArchive } from './lib/db.mjs';
 import { extractArticle, extractInfoPage, extractJournalIntro } from './lib/extract.mjs';
 import {
   MANIFEST_CSV, DATA_DIR, PUBLIC_DIR, PROGRESS_JSON, REDIRECTS_FILE, UNBUILT_CSV,
@@ -89,7 +89,7 @@ function processArticle(row, slug) {
   const requestUri = row.archive_request_uri || '/';
   const html = (() => {
     const abs = resolveArchiveFile(row.archive_file);
-    if (abs && fs.existsSync(abs)) return fs.readFileSync(abs, 'utf-8');
+    if (abs && fs.existsSync(abs)) return decodeArchive(fs.readFileSync(abs), (lookupLoose(host, requestUri)||{}).charset);
     const r = lookupLoose(host, requestUri);
     return r ? readHtml(r) : null;
   })();
@@ -157,7 +157,7 @@ function processJournalHome(row, slug) {
   const journal = normJournal;
   const html = (() => {
     const abs = resolveArchiveFile(row.archive_file);
-    if (abs && fs.existsSync(abs)) return fs.readFileSync(abs, 'utf-8');
+    if (abs && fs.existsSync(abs)) return decodeArchive(fs.readFileSync(abs), (lookupLoose(host, requestUri)||{}).charset);
     const r = lookupLoose(host, requestUri);
     return r ? readHtml(r) : null;
   })();
@@ -182,7 +182,7 @@ function processInfoPage(row, slug) {
   const journal = slug.split('/')[0];
   const html = (() => {
     const abs = resolveArchiveFile(row.archive_file);
-    if (abs && fs.existsSync(abs)) return fs.readFileSync(abs, 'utf-8');
+    if (abs && fs.existsSync(abs)) return decodeArchive(fs.readFileSync(abs), (lookupLoose(host, requestUri)||{}).charset);
     const r = lookupLoose(host, requestUri);
     return r ? readHtml(r) : null;
   })();

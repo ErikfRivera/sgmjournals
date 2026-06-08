@@ -6,15 +6,22 @@ import { hostToJournal } from './paths.mjs';
 // ---- metadata -------------------------------------------------------------
 export function extractMeta(html) {
   const $ = cheerio.load(html);
+  // Index every <meta name> by lowercased name. HighWire markup is inconsistent
+  // about case (dc.Contributor vs DC.Contributor, citation_Author …) and CSS
+  // attribute-value matching is case-sensitive, so collect case-insensitively.
+  const byName = new Map();
+  $('meta[name]').each((_, e) => {
+    const nm = ($(e).attr('name') || '').trim().toLowerCase();
+    if (!nm) return;
+    const c = ($(e).attr('content') || '').trim();
+    if (!byName.has(nm)) byName.set(nm, []);
+    byName.get(nm).push(c);
+  });
   const get = (name) => {
-    const el = $(`meta[name="${name}"]`).first();
-    return el.length ? (el.attr('content') || '').trim() : '';
+    const v = byName.get(name.toLowerCase());
+    return v && v.length ? (v[0] || '').trim() : '';
   };
-  const getAll = (name) =>
-    $(`meta[name="${name}"]`)
-      .map((_, e) => ($(e).attr('content') || '').trim())
-      .get()
-      .filter(Boolean);
+  const getAll = (name) => (byName.get(name.toLowerCase()) || []).map((s) => s.trim()).filter(Boolean);
 
   let authors = getAll('citation_author');
   if (!authors.length) authors = getAll('DC.Contributor');
