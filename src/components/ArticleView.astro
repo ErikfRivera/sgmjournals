@@ -1,0 +1,92 @@
+---
+import Icon from './Icon.astro';
+import { getJournal } from '../lib/journals.js';
+
+const { entry } = Astro.props;
+const m = entry.meta || {};
+const j = getJournal(entry.journal);
+const accent = j ? j.accent : 'var(--brand-primary)';
+const journalName = m.journalTitle || (j ? j.name : '');
+
+function year(d) {
+  if (!d) return '';
+  const mm = String(d).match(/(\d{4})/);
+  return mm ? mm[1] : '';
+}
+const yr = year(m.date);
+const pages = m.firstpage ? (m.lastpage && m.lastpage !== m.firstpage ? `${m.firstpage}–${m.lastpage}` : m.firstpage) : '';
+const citeLine = [
+  journalName,
+  yr && `${yr};`,
+  m.volume && `${m.volume}`,
+  m.issue && `(${m.issue})`,
+  pages && `:${pages}`,
+].filter(Boolean).join(' ').replace(' ;', ';').replace(' :', ':').replace(' (', '(');
+
+const articleType = (m.section || 'Research Article').replace(/\b\w/g, (c) => c.toUpperCase());
+const doiUrl = m.doi ? `https://doi.org/${m.doi}` : null;
+const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
+---
+<header class="article-head" style={`--acc:${accent}`}>
+  <div class="article-head__stripe"></div>
+  <div class="sgm-container article-head__inner">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span>
+      {j && <><a href={`/${j.code}/`}>{j.name}</a><span>/</span></>}
+      {m.volume && <span>Volume {m.volume}</span>}
+    </nav>
+    <div class="article-type">{articleType}</div>
+    <h1 class="article-title">{m.title}</h1>
+    {m.authors && m.authors.length > 0 && (
+      <p class="article-authors">{m.authors.join(', ')}</p>
+    )}
+    {citeLine && <p class="article-cite">{journalName} {citeLine.replace(journalName, '').trim()}{doiUrl && <> · <a href={doiUrl}>https://doi.org/{m.doi}</a></>}</p>}
+    <div class="article-head__actions">
+      {entry.pdfPath && <a class="sgm-btn sgm-btn--primary" href={entry.pdfPath}><Icon name="download" size={16} /> Download PDF</a>}
+      {doiUrl && <a class="sgm-btn sgm-btn--secondary" href={doiUrl}>View at publisher</a>}
+      {pubmedUrl && <a class="sgm-btn sgm-btn--secondary" href={pubmedUrl}>PubMed</a>}
+    </div>
+  </div>
+</header>
+
+<div class="sgm-container article-body-grid" style={`--acc:${accent}`}>
+  <article>
+    {!entry.bodyHtml && !entry.abstractHtml && (
+      <div class="notice"><strong>Full text not available.</strong> This article's full text was not recovered in the archive. The citation and links above point to the published record.</div>
+    )}
+    {entry.abstractHtml && (
+      <section class="abstract-block">
+        <h2>Abstract</h2>
+        <div class="prose" set:html={entry.abstractHtml}></div>
+      </section>
+    )}
+    {entry.bodyHtml && <div class="prose" set:html={entry.bodyHtml}></div>}
+    {entry.referencesHtml && (
+      <section class="ref-list">
+        <h2>References</h2>
+        <div set:html={entry.referencesHtml}></div>
+      </section>
+    )}
+  </article>
+
+  <aside class="side">
+    <div class="side-card">
+      <h3>Article information</h3>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);font-size:var(--fs-body-sm)">
+        {journalName && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Journal</div>{j ? <a class="sgm-link" href={`/${j.code}/`}>{journalName}</a> : journalName}</div>}
+        {m.volume && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Volume / Issue</div>Vol. {m.volume}{m.issue ? `, Issue ${m.issue}` : ''}</div>}
+        {pages && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Pages</div>{pages}</div>}
+        {yr && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Published</div>{yr}</div>}
+        {m.doi && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">DOI</div><a class="sgm-link sgm-mono" style="font-size:12px" href={doiUrl}>{m.doi}</a></div>}
+        {m.issn && m.issn.length > 0 && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">ISSN</div><span class="sgm-mono" style="font-size:12px">{m.issn.join(' · ')}</span></div>}
+      </div>
+    </div>
+    {entry.pdfPath && (
+      <div class="side-card side-cta" style={`background:${accent}`}>
+        <h3>Full text PDF</h3>
+        <p>Download the complete article as published.</p>
+        <a href={entry.pdfPath} class="sgm-btn sgm-btn--on-dark sgm-btn--sm"><Icon name="download" size={14} /> Download PDF</a>
+      </div>
+    )}
+  </aside>
+</div>

@@ -1,0 +1,18 @@
+---
+import { getJournal } from '../lib/journals.js';
+const { entry } = Astro.props;
+const j = getJournal(entry.journal);
+---
+<header class="page-head">
+  <div class="sgm-container page-head__inner">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span>
+      {j && <><a href={`/${j.code}/`}>{j.name}</a><span>/</span></>}
+      <span style="color:var(--text-body)">{entry.title || 'Information'}</span>
+    </nav>
+    <h1>{entry.title || 'Information'}</h1>
+  </div>
+</header>
+<div class="sgm-container page-body">
+  <div class="prose" set:html={entry.bodyHtml}></div>
+</div>

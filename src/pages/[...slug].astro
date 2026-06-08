@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleView from '../components/ArticleView.astro';
+import JournalHomeView from '../components/JournalHomeView.astro';
+import InfoView from '../components/InfoView.astro';
+import { getJournal } from '../lib/journals.js';
+
+export async function getStaticPaths() {
+  const mods = import.meta.glob('../data/generated/pages/**/*.json', { eager: true });
+  const entries = Object.values(mods).map((m) => m.default || m);
+
+  // Group articles by journal for journal-home listings.
+  const byJournal = {};
+  for (const e of entries) {
+    if (e.type === 'article') {
+      (byJournal[e.journal] ||= []).push(e);
+    }
+  }
+  for (const k of Object.keys(byJournal)) {
+    byJournal[k].sort((a, b) => (b.refdomains || 0) - (a.refdomains || 0));
+  }
+
+  function yearOf(d) { const mm = String(d || '').match(/(\d{4})/); return mm ? mm[1] : ''; }
+
+  return entries.map((entry) => {
+    let related = [];
+    if (entry.type === 'journal-home') {
+      related = (byJournal[entry.journal] || []).map((a) => ({
+        slug: a.slug,
+        title: a.meta?.title || a.slug,
+        authors: (a.meta?.authors || []).slice(0, 6).join(', ') + ((a.meta?.authors || []).length > 6 ? ', et al.' : ''),
+        type: (a.meta?.section || '').replace(/\b\w/g, (c) => c.toUpperCase()),
+        vol: a.meta?.volume,
+        issue: a.meta?.issue,
+        date: yearOf(a.meta?.date),
+        doi: a.meta?.doi,
+        refdomains: a.refdomains || 0,
+      }));
+    }
+    return { params: { slug: entry.slug }, props: { entry, related } };
+  });
+}
+
+const { entry, related } = Astro.props;
+const j = getJournal(entry.journal);
+
+let title, description, jsonld;
+if (entry.type === 'article') {
+  const m = entry.meta || {};
+  title = m.title;
+  // meta description from abstract first sentence, stripped of tags
+  const absText = (entry.abstractHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  description = absText ? absText.slice(0, 280) : `${m.title} — ${m.journalTitle || (j ? j.name : '')}${m.volume ? `, volume ${m.volume}` : ''}.`;
+  jsonld = {
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    headline: m.title,
+    author: (m.authors || []).map((name) => ({ '@type': 'Person', name })),
+    datePublished: m.date,
+    isPartOf: { '@type': 'Periodical', name: m.journalTitle || (j ? j.name : '') },
+    volumeNumber: m.volume,
+    issueNumber: m.issue,
+    pagination: m.firstpage,
+    identifier: m.doi ? { '@type': 'PropertyValue', propertyID: 'DOI', value: m.doi } : undefined,
+    url: entry.canonical,
+  };
+} else if (entry.type === 'journal-home') {
+  title = j ? j.name : entry.journal;
+  description = j ? j.tagline : `${entry.journal} — archived research from the Society for General Microbiology.`;
+} else {
+  title = entry.title || 'Information';
+  description = (entry.bodyHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240);
+}
+
+const navActive = 'Journals';
+---
+<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld}>
+  {entry.type === 'article' && <ArticleView entry={entry} />}
+  {entry.type === 'journal-home' && <JournalHomeView entry={entry} articles={related} />}
+  {(entry.type === 'info-page' || entry.type === 'other' || entry.type === 'subscriptions' || entry.type === 'toc/issue') && <InfoView entry={entry} />}
+</BaseLayout>

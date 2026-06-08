@@ -1,0 +1,49 @@
+---
+import TopNav from '../components/TopNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/styles.css';
+import '../styles/site.css';
+import '../styles/extra.css';
+
+const {
+  title,
+  description = 'Peer-reviewed microbiology research from the Society for General Microbiology journals.',
+  canonical,
+  navActive,
+  jsonld,
+  bodyClass = '',
+  robots,
+} = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
+const fullTitle = title ? `${title} | SGM Journals` : 'SGM Journals — Advancing Microbiology';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  {robots && <meta name="robots" content={robots} />}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta name="generator" content={Astro.generator} />
+  {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+</head>
+<body class={`sgm ${bodyClass}`.trim()}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <TopNav active={navActive} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+---
+import Icon from './Icon.astro';
+import { journalList } from '../lib/journals.js';
+
+const journals = journalList();
+const RESOURCES = [
+  { label: 'Author guidelines', href: '/about/for-authors' },
+  { label: 'Reviewer guidelines', href: '/about/for-reviewers' },
+  { label: 'Open Access policies', href: '/about/open-access' },
+  { label: 'Self-archiving policy', href: '/mic/misc/self_archiving.dtl' },
+  { label: 'Subscriptions', href: '/about/subscriptions' },
+];
+const ABOUT = [
+  { label: 'The Society', href: '/about' },
+  { label: 'Contact us', href: '/about/contact' },
+  { label: 'All journals', href: '/#journals' },
+];
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="sgm-container footer__inner">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <h4>Our journals</h4>
+        <ul>{journals.map((j) => <li><a href={`/${j.code}/`}>{j.name}</a></li>)}</ul>
+      </div>
+      <div class="footer__col">
+        <h4>Resources</h4>
+        <ul>{RESOURCES.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+      </div>
+      <div class="footer__col">
+        <h4>About</h4>
+        <ul>{ABOUT.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+      </div>
+      <div class="footer__col">
+        <h4>Connect</h4>
+        <div class="footer__social">
+          <a href="#" aria-label="Twitter / X"><Icon name="twitter" size={15} /></a>
+          <a href="#" aria-label="LinkedIn"><Icon name="linkedin" size={15} /></a>
+          <a href="#" aria-label="RSS"><Icon name="rss" size={16} /></a>
+        </div>
+        <p style="font-size:var(--fs-body-sm);color:rgba(255,255,255,0.66);line-height:1.6;margin:0">
+          An archival rebuild of the Society for General Microbiology journals, preserving the published research record.
+        </p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {year} Society for General Microbiology. Published research is the copyright of its respective authors and the Society.</span>
+      <span class="footer__legal"><a href="/about">About this archive</a><a href="/sitemap-index.xml">Sitemap</a></span>
+    </div>
+  </div>
+</footer>

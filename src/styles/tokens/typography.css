@@ -1,0 +1,55 @@
+/* ============================================================
+   SGM Journals — Typography Tokens
+   ------------------------------------------------------------
+   Spectral (display serif) sets the editorial, scholarly voice
+   in headlines and long-form article reading. IBM Plex Sans
+   handles all UI, navigation, labels and short-form body. A
+   fluid clamp() scale keeps headlines composed on mobile.
+   ============================================================ */
+
+:root {
+  /* ---- Families ------------------------------------------ */
+  --font-display: 'Spectral', Georgia, 'Times New Roman', serif;
+  --font-serif:   'Spectral', Georgia, serif;          /* article body reading */
+  --font-sans:    'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* ---- Weights ------------------------------------------- */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-display:  600;   /* Spectral SemiBold — default for hero headlines */
+
+  /* ---- Fluid display + heading scale --------------------- */
+  /* min (375px)  →  max (1280px) */
+  --fs-display:  clamp(2.5rem, 1.6rem + 3.8vw, 4.25rem);  /* hero H1, 40→68 */
+  --fs-h1:       clamp(2rem,   1.45rem + 2.3vw, 3rem);    /* 32→48 */
+  --fs-h2:       clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);/* 26→36 */
+  --fs-h3:       clamp(1.25rem, 1.1rem + 0.65vw, 1.5rem); /* 20→24 */
+  --fs-h4:       1.125rem;   /* 18 */
+  --fs-h5:       1rem;       /* 16 */
+
+  /* ---- Body + UI ----------------------------------------- */
+  --fs-lead:     1.25rem;    /* 20 — hero subhead, article lede */
+  --fs-body-lg:  1.0625rem;  /* 17 — article body */
+  --fs-body:     1rem;       /* 16 — default */
+  --fs-body-sm:  0.9375rem;  /* 15 */
+  --fs-label:    0.875rem;   /* 14 — UI labels, captions */
+  --fs-meta:     0.8125rem;  /* 13 — metadata, journal name kicker */
+  --fs-eyebrow:  0.75rem;    /* 12 — uppercase eyebrows / badges */
+
+  /* ---- Line heights -------------------------------------- */
+  --lh-display:  1.04;
+  --lh-heading:  1.12;
+  --lh-snug:     1.3;
+  --lh-body:     1.62;   /* long-form reading */
+  --lh-ui:       1.45;
+
+  /* ---- Letter spacing ------------------------------------ */
+  --ls-display:  -0.02em;
+  --ls-heading:  -0.012em;
+  --ls-body:     0;
+  --ls-eyebrow:  0.08em;   /* uppercase eyebrows / labels */
+  --ls-meta:     0.04em;
+}

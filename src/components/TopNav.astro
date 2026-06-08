@@ -1,0 +1,71 @@
+---
+import HexMark from './HexMark.astro';
+import Icon from './Icon.astro';
+
+// active: label of the current top-level section (optional)
+const { active } = Astro.props;
+const NAV_LINKS = [
+  { label: 'Journals', href: '/#journals' },
+  { label: 'For Authors', href: '/about/for-authors' },
+  { label: 'For Reviewers', href: '/about/for-reviewers' },
+  { label: 'Open Access', href: '/about/open-access' },
+  { label: 'About', href: '/about' },
+];
+---
+<header class="nav">
+  <div class="sgm-container nav__inner">
+    <a class="nav__brand" href="/" aria-label="SGM Journals home">
+      <HexMark class="nav__mark" />
+      <span class="nav__wm">SGM <b>Journals</b></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        {NAV_LINKS.map((l) => (
+          <li>
+            <a href={l.href} aria-current={active === l.label ? 'page' : undefined}
+               style={active === l.label ? 'color:var(--brand-primary);font-weight:600' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="nav__right">
+      <a class="nav__icon-btn" href="/search" aria-label="Search"><Icon name="search" size={19} /></a>
+      <a href="/about" class="nav__login sgm-btn sgm-btn--ghost sgm-btn--sm">About</a>
+      <a href="/#journals" class="nav__login sgm-btn sgm-btn--primary sgm-btn--sm">Browse journals</a>
+      <button class="nav__icon-btn nav__burger" aria-label="Open menu" data-drawer-open><Icon name="menu" size={22} /></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-overlay" data-drawer-overlay></div>
+<aside class="drawer" aria-hidden="true" data-drawer>
+  <div class="drawer__head">
+    <a class="nav__brand" href="/" aria-label="SGM Journals home">
+      <HexMark class="nav__mark" />
+      <span class="nav__wm">SGM <b>Journals</b></span>
+    </a>
+    <button class="nav__icon-btn" aria-label="Close menu" data-drawer-close><Icon name="x" size={22} /></button>
+  </div>
+  <ul class="drawer__links">
+    {NAV_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+  </ul>
+  <div class="drawer__cta">
+    <a href="/about" class="sgm-btn sgm-btn--secondary sgm-btn--lg" style="justify-content:center">About the Society</a>
+    <a href="/#journals" class="sgm-btn sgm-btn--primary sgm-btn--lg" style="justify-content:center">Browse journals</a>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    var drawer = document.querySelector('[data-drawer]');
+    var overlay = document.querySelector('[data-drawer-overlay]');
+    if (!drawer || !overlay) return;
+    function open() { drawer.classList.add('open'); overlay.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); }
+    function close() { drawer.classList.remove('open'); overlay.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }
+    document.querySelectorAll('[data-drawer-open]').forEach(function (b) { b.addEventListener('click', open); });
+    document.querySelectorAll('[data-drawer-close]').forEach(function (b) { b.addEventListener('click', close); });
+    overlay.addEventListener('click', close);
+    drawer.querySelectorAll('.drawer__links a').forEach(function (a) { a.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>

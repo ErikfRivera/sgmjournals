@@ -1,0 +1,60 @@
+/* ============================================================
+   SGM Journals — Spacing, Radii, Shadows, Motion, Layout
+   ------------------------------------------------------------
+   8pt base grid. Radii stay restrained and editorial (no pill
+   maximalism); shadows are tinted with the brand teal-navy so
+   elevation feels cohesive rather than neutral-gray.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing (8pt grid, + 4px half-steps) -------------- */
+  --sp-0:  0;
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ---- Section rhythm ------------------------------------ */
+  --section-y:        clamp(48px, 6vw, 96px);  /* vertical padding per band */
+  --section-gap:      var(--sp-7);
+
+  /* ---- Radii (editorial, restrained) --------------------- */
+  --radius-xs:  4px;
+  --radius-sm:  6px;
+  --radius-md:  10px;   /* cards, inputs */
+  --radius-lg:  16px;   /* feature panels, large cards */
+  --radius-xl:  24px;   /* hero / CTA containers */
+  --radius-pill: 999px; /* tags, chips, small badges only */
+
+  /* ---- Borders ------------------------------------------- */
+  --bw-1: 1px;
+  --bw-2: 1.5px;
+  --bw-stripe: 4px;     /* per-journal card top stripe */
+
+  /* ---- Shadows (navy-tinted) ----------------------------- */
+  --shadow-xs: 0 1px 2px rgba(10,26,46,0.06);
+  --shadow-sm: 0 2px 8px rgba(10,26,46,0.07);
+  --shadow-md: 0 8px 24px rgba(10,26,46,0.10);
+  --shadow-lg: 0 18px 44px rgba(10,26,46,0.14);
+  --shadow-focus: 0 0 0 3px rgba(14,76,67,0.35);
+
+  /* ---- Motion -------------------------------------------- */
+  --dur-fast:  120ms;
+  --dur-base:  200ms;
+  --dur-slow:  320ms;
+  --ease-out:  cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Layout -------------------------------------------- */
+  --container:      1280px;  /* desktop max content width */
+  --container-text: 760px;   /* article reading measure (~75ch) */
+  --gutter:         clamp(20px, 5vw, 64px);
+  --nav-h:          72px;
+  --nav-h-mobile:   56px;
+}

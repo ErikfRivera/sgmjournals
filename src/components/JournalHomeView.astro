@@ -1,0 +1,86 @@
+---
+import Icon from './Icon.astro';
+import { getJournal } from '../lib/journals.js';
+
+// props: entry (journal-home), articles (array of {slug,title,authors,type,vol,issue,date,doi,refdomains})
+const { entry, articles = [] } = Astro.props;
+const j = getJournal(entry.journal) || { name: entry.journal, accent: 'var(--brand-primary)' };
+const accent = j.accent;
+const top = articles.slice(0, 40);
+---
+<header class="jhead" style={`--acc:${accent}`}>
+  <div class="jhead__stripe"></div>
+  <div class="sgm-container jhead__inner">
+    <div>
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/#journals">Journals</a><span>/</span>
+        <span style="color:var(--text-body)">{j.name}</span>
+      </nav>
+      {j.founded && <p class="sgm-eyebrow jhead__eyebrow">Peer-reviewed · Founded {j.founded}</p>}
+      <h1>{j.name}</h1>
+      {j.tagline && <p class="jhead__tagline">{j.tagline}</p>}
+      <div class="jhead__meta">
+        {j.issn && <span class="sgm-tag">ISSN {j.issn}</span>}
+        {j.eissn && j.eissn !== j.issn && <span class="sgm-tag">eISSN {j.eissn}</span>}
+        {j.short && <span class="sgm-tag">{j.short}</span>}
+      </div>
+    </div>
+    <div class="jcover" style={`background:${accent}`}>
+      <div class="jcover__motif"></div>
+      <div class="jcover__body">
+        <div class="t">{j.name}</div>
+        {j.founded && <div class="y">Since {j.founded}</div>}
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sgm-container jbody" style={`--acc:${accent}`}>
+  <div>
+    <div class="block-head">
+      <h2>Most cited articles</h2>
+    </div>
+    {top.length > 0 ? (
+      <div class="artlist">
+        {top.map((a) => (
+          <article class="artitem">
+            {a.type && <div class="artitem__type">{a.type}</div>}
+            <h3 class="artitem__title"><a href={`/${a.slug}`}>{a.title}</a></h3>
+            {a.authors && <div class="artitem__authors">{a.authors}</div>}
+            <div class="artitem__meta">
+              {a.vol && <span>Vol. {a.vol}{a.issue ? `, Issue ${a.issue}` : ''}</span>}
+              {a.date && <span>{a.date}</span>}
+              {a.doi && <span class="doi">https://doi.org/{a.doi}</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="sgm-card" style="background:var(--surface-1);text-align:center;padding:var(--sp-8);color:var(--text-muted)">
+        <p class="sgm-body" style="margin:0">Articles for this journal are being added to the archive.</p>
+      </div>
+    )}
+    {entry.introHtml && (
+      <section style="margin-top:var(--sp-8)">
+        <div class="block-head"><h2>About the journal</h2></div>
+        <div class="prose" set:html={entry.introHtml}></div>
+      </section>
+    )}
+  </div>
+
+  <aside class="side">
+    <div class="side-card">
+      <h3>Journal information</h3>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);font-size:var(--fs-body-sm)">
+        {j.founded && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Founded</div>{j.founded}</div>}
+        {j.issn && <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">ISSN</div><span class="sgm-mono" style="font-size:12px">{j.issn}</span></div>}
+        <div><div style="color:var(--text-muted);font-size:var(--fs-meta)">Articles in archive</div>{articles.length.toLocaleString()}</div>
+      </div>
+    </div>
+    <div class="side-card side-cta" style={`background:${accent}`}>
+      <h3>The research record</h3>
+      <p>This is an archival rebuild preserving {j.name}'s published research and the citations pointing to it.</p>
+      <a href="/about" class="sgm-btn sgm-btn--on-dark sgm-btn--sm">About this archive <Icon name="arrowUR" size={14} /></a>
+    </div>
+  </aside>
+</main>

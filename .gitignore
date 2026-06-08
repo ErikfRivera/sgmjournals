@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# generated content + assets (regenerated from the archive by scripts/ingest.mjs)
+src/data/generated/
+public/assets/
+public/_redirects
+
+# tooling / scratch
+.playwright-mcp/
+*.log
+.DS_Store

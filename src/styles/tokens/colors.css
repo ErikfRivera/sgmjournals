@@ -1,0 +1,135 @@
+/* ============================================================
+   SGM Journals — Color Tokens
+   ------------------------------------------------------------
+   A trust-first scientific palette. Pine teal is the brand
+   signature; a near-black ink-navy anchors text and the footer;
+   cool neutral grays carry the long-form reading surfaces.
+   Per-journal accent colors are a first-class, documented set.
+   ============================================================ */
+
+:root {
+  /* ---- Brand: Pine Teal scale ---------------------------- */
+  --teal-50:  #ECF5F2;
+  --teal-100: #D2E8E1;
+  --teal-200: #A6D2C7;
+  --teal-300: #6FB4A4;
+  --teal-400: #3F9182;
+  --teal-500: #1E7264;
+  --teal-600: #145A4F;
+  --teal-700: #0E4C43;   /* brand primary — hero, buttons, links */
+  --teal-800: #0A3A33;   /* primary hover / pressed */
+  --teal-900: #062B26;
+
+  /* ---- Ink / Navy (text + footer) ------------------------ */
+  --navy-900: #0A1A2E;   /* footer background */
+  --navy-800: #102339;
+  --ink-900:  #131722;   /* headings */
+  --ink-800:  #1F2531;
+  --ink-700:  #2B3340;   /* strong body text */
+  --ink-600:  #444C5A;
+  --ink-500:  #5B6472;   /* secondary text */
+  --ink-400:  #8B93A1;   /* muted / meta */
+  --ink-300:  #B6BCC6;   /* disabled text */
+
+  /* ---- Neutral surfaces ---------------------------------- */
+  --white:      #FFFFFF;
+  --surface-1:  #FAFBFC;  /* subtle off-white */
+  --surface-2:  #F4F6F8;  /* gray section background */
+  --surface-3:  #ECEFF3;  /* deeper gray, wells */
+  --border:     #E2E6EC;  /* default hairline */
+  --border-strong: #CDD4DD;
+
+  /* ---- Per-journal accent system ------------------------- */
+  /* Each journal owns a hue used for its card stripe, badges,
+     in-journal links, and section rules. */
+  --journal-microbiology: #2546E5;  /* blue   — Microbiology (flagship) */
+  --journal-virology:     #7C3AED;  /* purple — J. General Virology */
+  --journal-medical:      #D92D2D;  /* red    — J. Medical Microbiology */
+  --journal-ijsem:        #E8620E;  /* orange — IJSEM */
+  --journal-genomics:     #0E9488;  /* teal   — Microbial Genomics */
+  --journal-access:       #1B9E54;  /* green  — Access Microbiology */
+
+  /* ---- Semantic ------------------------------------------ */
+  --success:    #15924F;   /* open access / positive chips */
+  --success-bg: #E6F4EC;
+  --error:      #D92D2D;
+  --error-bg:   #FBEAEA;
+  --info:       #2546E5;
+  --info-bg:    #ECEFFD;
+  --warning:    #E8620E;
+  --warning-bg: #FCEEE3;
+
+  /* ---- Semantic aliases (use these in components) -------- */
+  --brand-primary:          var(--teal-700);
+  --brand-primary-hover:    var(--teal-800);
+  --brand-primary-pressed:  var(--teal-900);
+  --brand-on-primary:       var(--white);
+  --brand-subtle-bg:        var(--teal-50);
+
+  --text-heading:  var(--ink-900);
+  --text-body:     var(--ink-700);
+  --text-muted:    var(--ink-500);
+  --text-meta:     var(--ink-400);
+  --text-on-dark:  rgba(255,255,255,0.92);
+  --text-on-dark-muted: rgba(255,255,255,0.66);
+  --link:          var(--teal-700);
+  --link-on-dark:  var(--teal-200);
+
+  --surface-page:    var(--white);
+  --surface-subtle:  var(--surface-2);
+  --surface-card:    var(--white);
+  --surface-well:    var(--surface-3);
+  --surface-hero:    var(--teal-700);
+  --surface-footer:  var(--navy-900);
+
+  --border-default: var(--border);
+  --border-card:    var(--border);
+  --border-focus:   var(--teal-700);
+
+  /* Hero hexagon-motif overlay tint (over teal) */
+  --hero-motif: rgba(255,255,255,0.05);
+}
+
+/* ============================================================
+   ALTERNATE BRAND PALETTES (explorations)
+   Apply to <html> or any wrapper via data-theme="…".
+   Only --brand-* and hero/footer surfaces shift; the neutral
+   reading system and per-journal accents stay constant so the
+   portfolio identity holds across themes.
+   ============================================================ */
+
+/* Theme A — Oxford Indigo: classic, high-authority journal blue */
+[data-theme="indigo"] {
+  --brand-primary:         #1E3A8A;
+  --brand-primary-hover:   #162E6E;
+  --brand-primary-pressed: #112454;
+  --brand-subtle-bg:       #ECEFFB;
+  --surface-hero:          #1E3A8A;
+  --surface-footer:        #0C1838;
+  --link:                  #1E3A8A;
+  --link-on-dark:          #BFD0FF;
+}
+
+/* Theme B — Heritage Maroon: long-established academic press */
+[data-theme="maroon"] {
+  --brand-primary:         #7A1E2B;
+  --brand-primary-hover:   #631620;
+  --brand-primary-pressed: #4E1019;
+  --brand-subtle-bg:       #F7ECEE;
+  --surface-hero:          #7A1E2B;
+  --surface-footer:        #2A1013;
+  --link:                  #7A1E2B;
+  --link-on-dark:          #F0C2C8;
+}
+
+/* Theme C — Slate Cyan: cooler, more modern / data-forward */
+[data-theme="slate"] {
+  --brand-primary:         #0E5A6B;
+  --brand-primary-hover:   #0A4753;
+  --brand-primary-pressed: #073640;
+  --brand-subtle-bg:       #E6F2F4;
+  --surface-hero:          #0E5A6B;
+  --surface-footer:        #0A1F26;
+  --link:                  #0E5A6B;
+  --link-on-dark:          #A9E0E8;
+}

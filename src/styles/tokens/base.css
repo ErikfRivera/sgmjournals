@@ -1,0 +1,188 @@
+/* ============================================================
+   SGM Journals — Base / Reset + Utility classes
+   Opt in by adding class="sgm" to <body>. Provides the editorial
+   type defaults, container, and the reusable class vocabulary
+   (.sgm-h1, .sgm-btn, .sgm-tag, .sgm-card, .sgm-journal-card …)
+   used across specimen cards and UI kits.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.sgm {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.sgm-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+.sgm-measure   { max-width: var(--container-text); }
+
+/* ---- Display + headings -------------------------------- */
+.sgm-display, .sgm-h1, .sgm-h2, .sgm-h3 {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  margin: 0;
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-heading);
+}
+.sgm-display { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); text-wrap: balance; }
+.sgm-h1 { font-size: var(--fs-h1); line-height: var(--lh-heading); }
+.sgm-h2 { font-size: var(--fs-h2); line-height: var(--lh-heading); }
+.sgm-h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); font-weight: var(--fw-semibold); }
+.sgm-h4 { font-family: var(--font-sans); font-size: var(--fs-h4); font-weight: var(--fw-semibold); line-height: var(--lh-snug); color: var(--text-heading); margin: 0; }
+
+/* ---- Body + supporting --------------------------------- */
+.sgm-lead { font-size: var(--fs-lead); line-height: var(--lh-snug); color: var(--text-body); margin: 0; }
+.sgm-body { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-body); }
+.sgm-prose { font-family: var(--font-serif); font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--text-body); }
+.sgm-meta {
+  font-size: var(--fs-meta); color: var(--text-muted);
+  letter-spacing: var(--ls-meta);
+}
+.sgm-eyebrow {
+  font-size: var(--fs-eyebrow); font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sgm-kicker { /* journal-name kicker above article titles */
+  font-size: var(--fs-meta); font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-meta); color: var(--text-muted);
+}
+.sgm-mono { font-family: var(--font-mono); font-size: var(--fs-label); }
+
+a.sgm-link, .sgm-link { color: var(--link); text-decoration: none; }
+a.sgm-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- Buttons ------------------------------------------- */
+.sgm-btn {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-family: var(--font-sans); font-size: var(--fs-label); font-weight: var(--fw-semibold);
+  line-height: 1; letter-spacing: 0.01em;
+  padding: 12px 20px; border-radius: var(--radius-sm);
+  border: var(--bw-1) solid transparent; cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  text-decoration: none; white-space: nowrap;
+}
+.sgm-btn:active { transform: translateY(1px); }
+.sgm-btn:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.sgm-btn--primary { background: var(--brand-primary); color: var(--brand-on-primary); }
+.sgm-btn--primary:hover { background: var(--brand-primary-hover); }
+
+.sgm-btn--secondary { background: var(--white); color: var(--brand-primary); border-color: var(--border-strong); }
+.sgm-btn--secondary:hover { background: var(--brand-subtle-bg); border-color: var(--brand-primary); }
+
+.sgm-btn--ghost { background: transparent; color: var(--brand-primary); padding-inline: 8px; }
+.sgm-btn--ghost:hover { color: var(--brand-primary-hover); }
+
+/* On dark (teal/navy) surfaces */
+.sgm-btn--on-dark { background: var(--white); color: var(--brand-primary); }
+.sgm-btn--on-dark:hover { background: rgba(255,255,255,0.88); }
+.sgm-btn--outline-dark { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.55); }
+.sgm-btn--outline-dark:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.9); }
+
+.sgm-btn--lg { padding: 15px 26px; font-size: var(--fs-body); }
+.sgm-btn--sm { padding: 8px 14px; font-size: var(--fs-meta); }
+
+/* ---- Tags / chips / pills ------------------------------ */
+.sgm-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-meta); font-weight: var(--fw-medium);
+  padding: 4px 10px; border-radius: var(--radius-xs);
+  background: var(--surface-3); color: var(--ink-600);
+  white-space: nowrap;
+}
+.sgm-tag--oa { background: var(--success-bg); color: var(--success); font-weight: var(--fw-semibold); }
+.sgm-tag--new { background: var(--info-bg); color: var(--info); font-weight: var(--fw-semibold); }
+
+.sgm-pill {
+  display: inline-flex; align-items: center;
+  font-size: var(--fs-eyebrow); font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+  padding: 5px 11px; border-radius: var(--radius-pill);
+  border: var(--bw-2) solid var(--brand-primary); color: var(--brand-primary);
+}
+.sgm-badge { /* solid label, e.g. "Editor's Pick" over image */
+  display: inline-flex; align-items: center;
+  font-size: var(--fs-eyebrow); font-weight: var(--fw-semibold);
+  letter-spacing: 0.03em; padding: 5px 10px; border-radius: var(--radius-xs);
+  color: var(--white);
+}
+
+/* ---- Cards --------------------------------------------- */
+.sgm-card {
+  background: var(--surface-card); border: var(--bw-1) solid var(--border-card);
+  border-radius: var(--radius-md); padding: var(--sp-5);
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.sgm-card--hover:hover { border-color: rgba(14,76,67,0.4); box-shadow: var(--shadow-sm); }
+
+/* Journal card: top accent stripe via --stripe custom prop */
+.sgm-journal-card {
+  position: relative; background: var(--surface-card);
+  border: var(--bw-1) solid var(--border-card);
+  border-radius: var(--radius-md); padding: var(--sp-5);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+.sgm-journal-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: var(--bw-stripe);
+  background: var(--stripe, var(--brand-primary));
+}
+.sgm-journal-card--hover:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-strong); }
+
+/* Article / featured-research card */
+.sgm-article-card { display: flex; flex-direction: column; }
+.sgm-article-card__media {
+  position: relative; display: block; aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md); overflow: hidden; background: var(--surface-3);
+}
+.sgm-article-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--dur-slow) var(--ease-out); }
+.sgm-article-card:hover .sgm-article-card__media img { transform: scale(1.03); }
+.sgm-article-card__placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-label); color: var(--text-meta); letter-spacing: var(--ls-meta);
+  background: repeating-linear-gradient(135deg, var(--surface-3) 0 14px, var(--surface-2) 14px 28px);
+}
+.sgm-article-card__media .sgm-badge { position: absolute; top: 12px; left: 12px; }
+.sgm-article-card__body { padding-top: var(--sp-3); }
+.sgm-article-card__title { color: var(--text-heading); text-decoration: none; }
+.sgm-article-card:hover .sgm-article-card__title { color: var(--brand-primary); }
+
+/* ---- Inputs -------------------------------------------- */
+.sgm-input {
+  width: 100%; font-family: var(--font-sans); font-size: var(--fs-body);
+  color: var(--text-body); background: var(--white);
+  border: var(--bw-1) solid var(--border-strong); border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.sgm-input::placeholder { color: var(--text-meta); }
+.sgm-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--shadow-focus); }
+
+.sgm-field { display: flex; flex-direction: column; gap: 6px; }
+.sgm-field__label { font-size: var(--fs-label); font-weight: var(--fw-semibold); color: var(--text-heading); }
+.sgm-field__msg { font-size: var(--fs-meta); }
+
+/* Search field with leading icon */
+.sgm-search { position: relative; display: flex; align-items: center; width: 100%; }
+.sgm-search__icon { position: absolute; left: 14px; color: var(--text-muted); pointer-events: none; }
+.sgm-search__input {
+  width: 100%; font-family: var(--font-sans); font-size: var(--fs-body);
+  color: var(--text-body); background: var(--white);
+  border: var(--bw-1) solid var(--border-strong); border-radius: var(--radius-pill);
+  padding: 11px 16px 11px 42px;
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.sgm-search__input::placeholder { color: var(--text-meta); }
+.sgm-search__input:focus { outline: none; border-color: var(--brand-primary); box-shadow: var(--shadow-focus); }
+
+/* ---- Reduced motion ------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

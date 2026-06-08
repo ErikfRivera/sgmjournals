@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { journalList } from '../lib/journals.js';
+
+const journals = journalList();
+const description =
+  'The archive of the Society for General Microbiology research journals: Microbiology, Journal of General Virology, Journal of Medical Microbiology, IJSEM and JMM Case Reports.';
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SGM Journals — Society for General Microbiology',
+  url: 'https://www.sgmjournals.org/',
+  description,
+};
+---
+<BaseLayout title={null} description={description} navActive="Journals" jsonld={jsonld}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__motif"></div>
+    <div class="hero__fade"></div>
+    <div class="sgm-container hero__inner root-hero__inner">
+      <div class="hero__body">
+        <p class="sgm-eyebrow hero__eyebrow">Society for General Microbiology</p>
+        <h1 class="hero__title">Advancing microbiology since 1947</h1>
+        <p class="hero__sub">A preserved archive of peer-reviewed research across bacteriology, virology, genomics, taxonomy, and medical microbiology.</p>
+        <div class="hero__actions">
+          <a href="#journals" class="sgm-btn sgm-btn--on-dark sgm-btn--lg">Explore the journals</a>
+          <a href="/about" class="sgm-btn sgm-btn--outline-dark sgm-btn--lg">About this archive</a>
+        </div>
+        <div class="hero__stats">
+          <div class="hero__stat"><div class="n">5</div><div class="l">Research journals</div></div>
+          <div class="hero__stat"><div class="n">70+</div><div class="l">Years of research</div></div>
+          <div class="hero__stat"><div class="n">100%</div><div class="l">Not-for-profit</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journals -->
+  <section class="section section--gray" id="journals">
+    <div class="sgm-container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sgm-h1 sec-head__title">Our journals</h2>
+          <p class="sec-head__sub">Browse the portfolio of peer-reviewed journals spanning the full spectrum of the microbial sciences.</p>
+        </div>
+      </div>
+      <div class="journals-grid">
+        {journals.map((j) => (
+          <article class="sgm-journal-card sgm-journal-card--hover" style={`--stripe:${j.accent}`}>
+            <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)"><a href={`/${j.code}/`} style="color:inherit;text-decoration:none">{j.name}</a></h3>
+            <p style="color:var(--text-muted);font-size:var(--fs-body-sm);margin:0;line-height:1.55">{j.tagline}</p>
+            <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;margin:var(--sp-4) 0">
+              <span class="sgm-tag">Founded {j.founded}</span>
+              <span class="sgm-tag">ISSN {j.issn}</span>
+            </div>
+            <a class="sgm-link" href={`/${j.code}/`} style="font-weight:600;font-size:var(--fs-label)">View journal →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About / access -->
+  <section class="section">
+    <div class="sgm-container access-grid">
+      <div class="access-card">
+        <div class="access-card__icon" style="background:var(--success-bg);color:var(--success)"><Icon name="book" size={22} /></div>
+        <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)">An open research record</h3>
+        <p>This site preserves the published output of the Society for General Microbiology journals so the research record, and the thousands of citations that point to it, remain accessible.</p>
+        <a href="/about/open-access" class="sgm-link">Open Access policies →</a>
+      </div>
+      <div class="access-card">
+        <div class="access-card__icon" style="background:var(--info-bg);color:var(--info)"><Icon name="building" size={22} /></div>
+        <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)">A not-for-profit publisher</h3>
+        <p>Founded in 1945 with Alexander Fleming as its first president, the Society publishes to advance microbiology, returning its surplus to the research community through grants, events, and prizes.</p>
+        <a href="/about" class="sgm-link">About the Society →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community band -->
+  <section class="community">
+    <div class="community__motif"></div>
+    <div class="sgm-container community__inner">
+      <h2>Publishing for the community</h2>
+      <p>As a not-for-profit publisher and proud DORA signatory, the Society for General Microbiology has long supported the microbiological community, advancing science rather than maximizing profits.</p>
+      <a href="/about" class="sgm-btn sgm-btn--on-dark sgm-btn--lg">Learn more about the Society</a>
+    </div>
+  </section>
+</BaseLayout>
