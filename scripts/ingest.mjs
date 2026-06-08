@@ -226,6 +226,17 @@ for (const row of rows) {
     }
   }
 
+  // Some backlink target URLs carry junk (e.g. ".../463}}[]" from broken
+  // referrers). Don't mint a page for those — redirect the junk to the clean
+  // path (which its own manifest row builds) and skip.
+  let decoded = slug; try { decoded = decodeURIComponent(slug); } catch {}
+  if (/[{}\[\]<>"'\s|\\^`]/.test(decoded)) {
+    const clean = decoded.replace(/[{}\[\]<>"'\s|\\^`].*$/, '').replace(/\/+$/, '');
+    if (clean && clean !== slug) addRedirect('/' + slug, '/' + clean);
+    recordUnbuilt(row, 'malformed-url');
+    continue;
+  }
+
   // resumability
   if (progress.built[slug] && !RESET) { skipped++; continue; }
 

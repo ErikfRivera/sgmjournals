@@ -406,7 +406,7 @@ url,type,reason
 "https://www.sgmjournals.org/mic/content/157/1/136/suppl/DC1",article,not-in-archive
 "https://www.sgmjournals.org/ijsb/content/56/4/739",article-full,not-in-archive
 "https://www.sgmjournals.org/mic/content/2/2/123",article-pdf,not-in-archive
-"https://www.sgmjournals.org/vir/cgi/doi/10.1099/vir.0.053868-0%20target=_blank",other,not-in-archive
+"https://www.sgmjournals.org/vir/cgi/doi/10.1099/vir.0.053868-0%20target=_blank",other,malformed-url
 "https://www.sgmjournals.org/vir/content/92/6/1428",article-abstract,not-in-archive
 "https://www.sgmjournals.org/mic/content/129/2/255",article-pdf,not-in-archive
 "https://www.sgmjournals.org/jmm/content/61/Pt_12/1696/suppl/DC1",article,not-in-archive
@@ -623,8 +623,8 @@ url,type,reason
 "https://www.sgmjournals.org/mic/content/journal/micro/10.1099/00221287-101-2-341",article,not-in-archive
 "https://www.sgmjournals.org/jmm/content/59/4/414",article-full,not-in-archive
 "https://www.sgmjournals.org/mic/content/journal/micro/10.1099/0022128719-2-244",article,not-in-archive
-"https://www.sgmjournals.org/ijs/content/37/4/463}}%5B%5D",article,not-in-archive
-"https://www.sgmjournals.org/ijs/content/37/4/463}}",article,not-in-archive
+"https://www.sgmjournals.org/ijs/content/37/4/463}}%5B%5D",article,malformed-url
+"https://www.sgmjournals.org/ijs/content/37/4/463}}",article,malformed-url
 "https://www.sgmjournals.org/jmm/content/61/Pt_4/514",article,not-in-archive
 "https://www.sgmjournals.org/jmm/content/59/10/1163",article-full,not-in-archive
 "https://www.sgmjournals.org/jmm/content/jmm.0.081844-0",article-abstract,not-in-archive
@@ -1154,7 +1154,7 @@ url,type,reason
 "https://www.sgmjournals.org/ijs/content/64/Pt_7/2376",article-abstract,not-in-archive
 "https://www.sgmjournals.org/mic/content/2/3/288",article-pdf,not-in-archive
 "https://www.sgmjournals.org/mic/content/journal/micro/10.1099/00221287-146-6-1259",article,not-in-archive
-"https://www.sgmjournals.org/vir/content/vol84/issue9/images/large/VIR24269-4.jpeg%5Dvirussen%5B/url%5D",article,not-in-archive
+"https://www.sgmjournals.org/vir/content/vol84/issue9/images/large/VIR24269-4.jpeg%5Dvirussen%5B/url%5D",article,malformed-url
 "https://www.sgmjournals.org/jmm/content/47/11/1019",article,not-in-archive
 "https://www.sgmjournals.org/mic/content/138/5/901",article-full,not-in-archive
 "https://www.sgmjournals.org/vir/content/94/Pt_10/2141/F7.large.jpg",article,not-in-archive

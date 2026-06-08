@@ -73,8 +73,11 @@ if (entry.type === 'article') {
 }
 
 const navActive = 'Journals';
+// Citation-only stubs are thin by design — keep them reachable (200 + canonical)
+// for backlink equity, but don't index them.
+const robots = entry.stub ? 'noindex,follow' : undefined;
 ---
-<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld}>
+<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld} robots={robots}>
   {entry.type === 'article' && <ArticleView entry={entry} />}
   {entry.type === 'journal-home' && <JournalHomeView entry={entry} articles={related} />}
   {(entry.type === 'info-page' || entry.type === 'other' || entry.type === 'subscriptions' || entry.type === 'toc/issue') && <InfoView entry={entry} />}

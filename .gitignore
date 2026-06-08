@@ -9,6 +9,8 @@ dist/
 src/data/generated/
 public/assets/
 public/_redirects
+public/sitemap.xml
+public/robots.txt
 
 # tooling / scratch
 .playwright-mcp/
