@@ -1,0 +1,32 @@
+---
+import { getJournal } from '../lib/journals.js';
+const { entry } = Astro.props;
+const j = getJournal(entry.journal);
+const accent = j ? j.accent : 'var(--brand-primary)';
+const jn = j ? j.name : entry.journal;
+const issues = entry.issues || [];
+---
+<header class="article-head" style={`--acc:${accent}`}>
+  <div class="article-head__stripe"></div>
+  <div class="sgm-container article-head__inner">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span>
+      {j && <><a href={`/${j.code}`}>{j.name}</a><span>/</span></>}
+      <span>Volume {entry.vol}</span>
+    </nav>
+    <div class="article-type">Volume contents</div>
+    <h1 class="article-title">{jn} — Volume {entry.vol}</h1>
+    <p class="article-authors">{issues.length} issue{issues.length === 1 ? '' : 's'} in this volume</p>
+  </div>
+</header>
+
+<div class="sgm-container" style={`--acc:${accent};padding:var(--sp-8) var(--sp-4)`}>
+  <div class="artlist">
+    {issues.map((it) => (
+      <article class="artitem">
+        <h2 class="artitem__title" style="font-size:var(--fs-h4,1.1rem)"><a href={it.url}>Issue {it.issue}</a></h2>
+        <div class="artitem__meta"><span>{it.count} article{it.count === 1 ? '' : 's'}</span></div>
+      </article>
+    ))}
+  </div>
+</div>

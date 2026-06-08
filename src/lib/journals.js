@@ -57,9 +57,21 @@ export const JOURNALS = {
     tagline: 'Peer-reviewed case reports across medical microbiology and infectious disease.',
     aliasHosts: ['jmmcr.sgmjournals.org'],
   },
+  mgen: {
+    code: 'mgen',
+    name: 'Microbial Genomics',
+    short: 'Microb. Genom.',
+    accent: 'var(--journal-genomics)',
+    founded: 2015,
+    issn: '2057-5858',
+    eissn: '2057-5858',
+    tagline: 'Open-access research in microbial genomics and its applications.',
+    aliasHosts: ['mgen.sgmjournals.org'],
+  },
 };
 
-// Ordered list for portfolio displays (flagship first).
+// Ordered list for portfolio displays (flagship first). mgen is data-only
+// (handful of records) and intentionally omitted from the portfolio grid.
 export const JOURNAL_ORDER = ['mic', 'vir', 'jmm', 'ijs', 'jmmcr'];
 
 export function journalList() {

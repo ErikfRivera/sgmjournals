@@ -33,7 +33,8 @@ const pubmedUrl = m.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/` : null;
     <nav class="crumb" aria-label="Breadcrumb">
       <a href="/">Home</a><span>/</span>
       {j && <><a href={`/${j.code}`}>{j.name}</a><span>/</span></>}
-      {m.volume && <span>Volume {m.volume}</span>}
+      {m.volume && <><a href={`/${entry.journal}/content/${m.volume}`}>Volume {m.volume}</a>{m.issue && <span>/</span>}</>}
+      {m.volume && m.issue && <a href={`/${entry.journal}/content/${m.volume}/${m.issue}`}>Issue {m.issue}</a>}
     </nav>
     <div class="article-type">{articleType}</div>
     <h1 class="article-title">{m.title}</h1>

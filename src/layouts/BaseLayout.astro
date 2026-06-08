@@ -12,11 +12,25 @@ const {
   navActive,
   jsonld,
   bodyClass = '',
-  robots,
+  robots = 'index,follow',
+  ogType = 'website',
+  image = '/og-default.png',
+  imageAlt = 'SGM Journals — Society for General Microbiology research archive',
+  published,
+  modified,
+  articleAuthors = [],
+  section,
+  brand = 'SGM Journals',
 } = Astro.props;
 
 const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
-const fullTitle = title ? `${title} | SGM Journals` : 'SGM Journals — Advancing Microbiology';
+const fullTitle = title ? `${title} | ${brand}` : 'SGM Journals — Advancing Microbiology';
+const imageUrl = new URL(image, Astro.site).href;
+// Social title/description are clamped so cards never truncate awkwardly.
+const ogTitle = fullTitle.length > 90 ? fullTitle.slice(0, 87).trimEnd() + '…' : fullTitle;
+const ogDesc = description.length > 200 ? description.slice(0, 197).trimEnd() + '…' : description;
+// jsonld may be a single object or an array of blocks (Article + BreadcrumbList…)
+const ldBlocks = Array.isArray(jsonld) ? jsonld.filter(Boolean) : (jsonld ? [jsonld] : []);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -27,15 +41,37 @@ const fullTitle = title ? `${title} | SGM Journals` : 'SGM Journals — Advancin
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  {robots && <meta name="robots" content={robots} />}
+  <meta name="robots" content={robots} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content={fullTitle} />
-  <meta property="og:description" content={description} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content="SGM Journals" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDesc} />
   <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:secure_url" content={imageUrl} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={imageAlt} />
+  {ogType === 'article' && published && <meta property="article:published_time" content={published} />}
+  {ogType === 'article' && (modified || published) && <meta property="article:modified_time" content={modified || published} />}
+  {ogType === 'article' && section && <meta property="article:section" content={section} />}
+  {ogType === 'article' && articleAuthors.map((a) => <meta property="article:author" content={a} />)}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle} />
+  <meta name="twitter:description" content={ogDesc} />
+  <meta name="twitter:image" content={imageUrl} />
+  <meta name="twitter:image:alt" content={imageAlt} />
+
   <meta name="generator" content={Astro.generator} />
-  {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  {ldBlocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   <!-- Google tag (gtag.js) -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-VMVXSLL5GY"></script>
   <script is:inline>
