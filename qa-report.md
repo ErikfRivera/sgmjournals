@@ -63,6 +63,27 @@ markup, citation-tool artifacts, trailing junk) handled by `middleware.js`, whic
 | G-1 design applied consistently | **PASS** — one Claude Design system across home, journal-home, article, info layouts |
 | G-2 responsive, alt text, heading order, contrast | **Reviewed** — mobile-first layout (drawer nav), figure `alt` preserved from source, single `<h1>` per page; full Lighthouse a11y pass recommended as a follow-up |
 
+## Live verification (www.sgmjournals.org)
+
+Crawled all 6,163 backlink URLs against the live domain, following the full chain
+(Cloudflare host redirect → `middleware.js` → page). `backlink-live-report.csv`.
+
+- **0 actual 404s.** Every URL whose host resolves returns 200/3xx.
+- 5,080 resolve end-to-end; **1,083 fail at DNS only** (`fetch` TypeError, host has
+  no DNS record) — not a site defect. Verified: 55/55 sampled DNS-failed URLs
+  return 200 at their `www` path, i.e. the pages exist; only the subdomain→www
+  redirect can't start without a DNS record.
+- Middleware normalization confirmed live: junk URLs (e.g. `…/85/4/1029%20`,
+  `…2449.full.pdf%5B%5D`) 308 to the clean canonical (200); clean variant pages
+  (`/mic/cgi/content/full/150/11/3527`) serve directly with no redirect.
+
+**Action required (DNS, outside this repo — §7 non-goal):** add proxied DNS
+records (as `vir`/`mic`/`ijs` already have) for these hosts so the existing
+Cloudflare bulk redirect fires:
+`jmm`, `jmmcr`, `ijsb`, `mgen`, `intl`, `intl-vir`, `intl-mic`, `intl-jmm`,
+`submit-vir`, `submit-mic` (.sgmjournals.org). Once added, live resolution
+reaches 6,163/6,163.
+
 ## Outputs
 - `backlink-coverage-report.csv` — every target URL → status / in-site path / kind (all `resolved`)
 - `qa-broken-links.csv` — empty (0 broken internal links)
@@ -70,4 +91,7 @@ markup, citation-tool artifacts, trailing junk) handled by `middleware.js`, whic
 - `build-report.md` — page counts per type/journal
 
 ## Summary
-Backlinked URLs resolving: 6173/6173 (100%)
+Backlinked URLs resolving: 6173/6173 (100%) — every backlinked URL has a real
+page at its canonical `www` path (0 site 404s). Live end-to-end is 5,080/6,163
+pending DNS records for 10 legacy subdomains (jmm, jmmcr, ijsb, mgen, intl, and
+intl-/submit- variants); the pages themselves all exist and resolve at `www`.
