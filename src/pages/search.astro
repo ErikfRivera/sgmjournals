@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { journalList } from '../lib/journals.js';
+const journals = journalList();
+---
+<BaseLayout title="Search" description="Browse the SGM Journals archive by journal." robots="noindex,follow">
+  <header class="page-head">
+    <div class="sgm-container page-head__inner">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span style="color:var(--text-body)">Search</span></nav>
+      <h1>Search the archive</h1>
+    </div>
+  </header>
+  <div class="sgm-container page-body">
+    <div class="prose" style="max-width:var(--container-text)">
+      <p>Full-text search is not yet available in this archive. You can browse the
+      research record by journal, then by volume and issue.</p>
+    </div>
+    <div class="journals-grid" style="margin-top:var(--sp-6)">
+      {journals.map((j) => (
+        <article class="sgm-journal-card sgm-journal-card--hover" style={`--stripe:${j.accent}`}>
+          <h3 class="sgm-h3" style="margin-bottom:var(--sp-2)"><a href={`/${j.code}/`} style="color:inherit;text-decoration:none">{j.name}</a></h3>
+          <p style="color:var(--text-muted);font-size:var(--fs-body-sm);margin:0;line-height:1.55">{j.tagline}</p>
+          <a class="sgm-link" href={`/${j.code}/`} style="font-weight:600;font-size:var(--fs-label);display:inline-block;margin-top:var(--sp-3)">View journal →</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
