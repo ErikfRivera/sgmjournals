@@ -36,6 +36,15 @@ const fullTitle = title ? `${title} | SGM Journals` : 'SGM Journals — Advancin
   <meta property="og:url" content={canonicalUrl} />
   <meta name="generator" content={Astro.generator} />
   {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-VMVXSLL5GY"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VMVXSLL5GY');
+  </script>
 </head>
 <body class={`sgm ${bodyClass}`.trim()}>
   <a class="skip-link" href="#main">Skip to content</a>
