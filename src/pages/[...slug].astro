@@ -3,14 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleView from '../components/ArticleView.astro';
 import JournalHomeView from '../components/JournalHomeView.astro';
 import InfoView from '../components/InfoView.astro';
+import IssueTocView from '../components/IssueTocView.astro';
+import VolumeTocView from '../components/VolumeTocView.astro';
 import { getJournal } from '../lib/journals.js';
+import { isoDate, yearOf, articleDescription, articleSchema, breadcrumb,
+  periodicalSchema, stripHtml } from '../lib/seo.js';
 
 import fs from 'node:fs';
 import path from 'node:path';
 
 export async function getStaticPaths() {
-  // Read generated entries from disk rather than import.meta.glob: at ~9k+ files
-  // the eager glob bundles into one module and overflows the call stack.
   const PAGES_DIR = path.join(process.cwd(), 'src', 'data', 'generated', 'pages');
   function walk(dir) {
     const out = [];
@@ -24,81 +26,232 @@ export async function getStaticPaths() {
     return out;
   }
   const entries = walk(PAGES_DIR).map((f) => JSON.parse(fs.readFileSync(f, 'utf-8')));
+  const existingSlugs = new Set(entries.map((e) => e.slug));
 
-  // Group articles by journal for journal-home listings.
+  // Group canonical articles by journal / volume / issue.
   const byJournal = {};
+  const byIssue = {};   // `${j}/content/${vol}/${issue}` -> [articles]
+  const byVolume = {};  // `${j}/content/${vol}` -> Map(issue -> count)
   for (const e of entries) {
-    if (e.type === 'article' && !e.alias) {
-      (byJournal[e.journal] ||= []).push(e);
+    if (e.type !== 'article' || e.alias) continue;
+    (byJournal[e.journal] ||= []).push(e);
+    const m = e.meta || {};
+    // Only group on clean published vol/issue tokens. Some recovered stubs carry
+    // the malformed HighWire `vol96`/`issue2` index strings — those must not seed
+    // TOC pages (they collide with the real numeric ones and render thin).
+    const cleanVI = m.volume && m.issue
+      && !/^vol\d+$/i.test(String(m.volume)) && !/^issue/i.test(String(m.issue));
+    if (cleanVI) {
+      const ik = `${e.journal}/content/${m.volume}/${m.issue}`;
+      (byIssue[ik] ||= []).push(e);
+      const vk = `${e.journal}/content/${m.volume}`;
+      (byVolume[vk] ||= new Map()).set(String(m.issue), (byVolume[vk]?.get(String(m.issue)) || 0) + 1);
     }
   }
   for (const k of Object.keys(byJournal)) {
     byJournal[k].sort((a, b) => (b.refdomains || 0) - (a.refdomains || 0));
-    byJournal[k] = byJournal[k].slice(0, 60); // cap related list passed as props
+  }
+  const pageNum = (m) => parseInt(String(m.firstpage || '').replace(/\D/g, ''), 10) || 0;
+
+  // --- build-time uniqueness for titles & descriptions (canonical articles) ---
+  const titleCount = new Map();
+  const descCache = new Map();   // slug -> { title, desc, m, j }
+  for (const e of entries) {
+    if (e.type !== 'article' || e.alias) continue;
+    const m = e.meta || {};
+    const j = getJournal(e.journal);
+    const journalName = m.journalTitle || (j ? j.name : '');
+    const desc = articleDescription(m, e.abstractHtml, e.summaryHtml, journalName);
+    descCache.set(e.slug, { title: m.title || e.slug, desc, m, j, journalName });
+    const t = m.title || e.slug;
+    titleCount.set(t, (titleCount.get(t) || 0) + 1);
+  }
+  const descCount = new Map();
+  for (const { desc } of descCache.values()) descCount.set(desc, (descCount.get(desc) || 0) + 1);
+
+  function cite(j, m) {
+    const sh = (j && j.short) || (m.journalAbbrev) || '';
+    return `${sh} ${m.volume || ''}(${m.issue || ''}):${m.firstpage || ''}`.replace(/\s+/g, ' ').trim();
+  }
+  const seoBySlug = new Map();
+  for (const [slug, c] of descCache) {
+    let title = c.title, desc = c.desc;
+    if (titleCount.get(c.title) > 1) title = `${c.title} — ${cite(c.j, c.m)}`;
+    if (descCount.get(c.desc) > 1) {
+      const tail = ` (${cite(c.j, c.m)})`;
+      desc = (desc.length + tail.length > 160 ? desc.slice(0, 160 - tail.length).replace(/\s+\S*$/, '') : desc) + tail;
+    }
+    seoBySlug.set(slug, { title, desc });
   }
 
-  function yearOf(d) { const mm = String(d || '').match(/(\d{4})/); return mm ? mm[1] : ''; }
+  const out = [];
+  const issueKeys = new Set(Object.keys(byIssue));
+  const volKeys = new Set(Object.keys(byVolume));
 
-  return entries.map((entry) => {
+  // real entries — but skip thin stub entries that sit exactly on an issue/volume
+  // slug; those slugs are served by the richer synthetic TOC pages below so every
+  // article in the issue gets an inbound link (no orphans).
+  for (const entry of entries) {
+    if (issueKeys.has(entry.slug) || volKeys.has(entry.slug)) continue;
     let related = [];
     if (entry.type === 'journal-home') {
-      related = (byJournal[entry.journal] || []).map((a) => ({
+      const arts = byJournal[entry.journal] || [];
+      related = arts.slice(0, 60).map((a) => ({
         slug: a.slug,
         title: a.meta?.title || a.slug,
         authors: (a.meta?.authors || []).slice(0, 6).join(', ') + ((a.meta?.authors || []).length > 6 ? ', et al.' : ''),
         type: (a.meta?.section || '').replace(/\b\w/g, (c) => c.toUpperCase()),
-        vol: a.meta?.volume,
-        issue: a.meta?.issue,
-        date: yearOf(a.meta?.date),
-        doi: a.meta?.doi,
-        refdomains: a.refdomains || 0,
+        vol: a.meta?.volume, issue: a.meta?.issue, date: yearOf(a.meta?.date),
+        doi: a.meta?.doi, refdomains: a.refdomains || 0,
       }));
     }
-    return { params: { slug: entry.slug }, props: { entry, related } };
-  });
+    // volume list for journal-home browse hierarchy
+    let volumes = [];
+    if (entry.type === 'journal-home') {
+      volumes = Object.keys(byVolume)
+        .filter((vk) => vk.startsWith(`${entry.journal}/content/`))
+        .map((vk) => {
+          const vol = vk.split('/').pop();
+          let count = 0; for (const c of byVolume[vk].values()) count += c;
+          return { vol, issues: byVolume[vk].size, count, url: '/' + vk };
+        })
+        .sort((a, b) => (parseInt(b.vol) || 0) - (parseInt(a.vol) || 0));
+    }
+    out.push({ params: { slug: entry.slug }, props: { entry, related, volumes, seo: seoBySlug.get(entry.slug) || null } });
+  }
+
+  // synthetic issue TOC pages (always generated; replace any thin stub at the slug)
+  for (const [ik, arts] of Object.entries(byIssue)) {
+    const [journal, , vol, issue] = ik.split('/');
+    arts.sort((a, b) => pageNum(a.meta || {}) - pageNum(b.meta || {}));
+    const list = arts.map((a) => ({
+      slug: a.slug, title: a.meta?.title || a.slug,
+      authors: (a.meta?.authors || []).slice(0, 8).join(', ') + ((a.meta?.authors || []).length > 8 ? ' et al.' : ''),
+      page: a.meta?.firstpage, lastpage: a.meta?.lastpage,
+      type: (a.meta?.section || '').replace(/\b\w/g, (c) => c.toUpperCase()), doi: a.meta?.doi,
+    }));
+    out.push({ params: { slug: ik }, props: { entry: {
+      type: 'issue-toc', journal, vol, issue, slug: ik,
+      canonical: `https://www.sgmjournals.org/${ik}`, articles: list,
+    }, related: [], volumes: [], seo: null } });
+  }
+
+  // synthetic volume TOC pages (always generated; replace any thin stub at the slug)
+  for (const [vk, issMap] of Object.entries(byVolume)) {
+    const [journal, , vol] = vk.split('/');
+    const issues = [...issMap.entries()]
+      .map(([issue, count]) => ({ issue, count, url: `/${journal}/content/${vol}/${issue}` }))
+      .sort((a, b) => String(a.issue).localeCompare(String(b.issue), undefined, { numeric: true }));
+    out.push({ params: { slug: vk }, props: { entry: {
+      type: 'volume-toc', journal, vol, slug: vk,
+      canonical: `https://www.sgmjournals.org/${vk}`, issues,
+    }, related: [], volumes: [], seo: null } });
+  }
+
+  return out;
 }
 
-const { entry, related } = Astro.props;
+const { entry, related, volumes, seo } = Astro.props;
 const j = getJournal(entry.journal);
+const SITE = 'https://www.sgmjournals.org';
 
-let title, description, jsonld;
+let title, description, jsonld, ogType = 'website', published, articleAuthors = [], section, brand = 'SGM Journals', robots = 'index,follow';
+
 if (entry.type === 'article') {
   const m = entry.meta || {};
-  title = m.title;
-  // meta description from abstract first sentence, then summary, stripped of tags
-  const absText = (entry.abstractHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  const sumText = (entry.summaryHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  description = (absText || sumText) ? (absText || sumText).slice(0, 280) : `${m.title} — ${m.journalTitle || (j ? j.name : '')}${m.volume ? `, volume ${m.volume}` : ''}.`;
-  jsonld = {
-    '@context': 'https://schema.org',
-    '@type': 'ScholarlyArticle',
-    headline: m.title,
-    author: (m.authors || []).map((name) => ({ '@type': 'Person', name })),
-    datePublished: m.date,
-    isPartOf: { '@type': 'Periodical', name: m.journalTitle || (j ? j.name : '') },
-    volumeNumber: m.volume,
-    issueNumber: m.issue,
-    pagination: m.firstpage,
-    identifier: m.doi ? { '@type': 'PropertyValue', propertyID: 'DOI', value: m.doi } : undefined,
-    description: (absText || sumText) ? (absText || sumText).slice(0, 5000) : undefined,
-    url: entry.canonical,
-  };
+  const journalName = m.journalTitle || (j ? j.name : '');
+  title = seo?.title || m.title;
+  description = seo?.desc || articleDescription(m, entry.abstractHtml, entry.summaryHtml, journalName);
+  ogType = 'article';
+  published = isoDate(m.date);
+  articleAuthors = (m.authors || []).slice(0, 10);
+  section = m.section ? m.section.replace(/\b\w/g, (c) => c.toUpperCase()) : undefined;
+  const schemaDesc = stripHtml(entry.abstractHtml || entry.summaryHtml) || description;
+  const art = articleSchema(entry, journalName, schemaDesc);
+  const crumbs = [
+    { name: 'Home', url: '/' },
+    j && { name: j.name, url: `/${j.code}` },
+    m.volume && { name: `Volume ${m.volume}`, url: `/${entry.journal}/content/${m.volume}` },
+    m.volume && m.issue && { name: `Issue ${m.issue}`, url: `/${entry.journal}/content/${m.volume}/${m.issue}` },
+    { name: m.title, url: entry.canonical },
+  ].filter(Boolean);
+  jsonld = [art, breadcrumb(crumbs)];
+  // Old HighWire issue-index stubs (/content/volNN/issueN) are mis-typed as
+  // articles — empty title, no body. Keep them reachable but out of the index.
+  if (/\/content\/vol\d+\b/.test('/' + (entry.slug || '')) || (!m.title && !entry.bodyHtml && !entry.abstractHtml && !entry.summaryHtml)) {
+    robots = 'noindex,follow';
+  }
 } else if (entry.type === 'journal-home') {
   title = j ? j.name : entry.journal;
   description = j ? j.tagline : `${entry.journal} — archived research from the Society for General Microbiology.`;
+  jsonld = [
+    j ? periodicalSchema(entry, j) : null,
+    breadcrumb([{ name: 'Home', url: '/' }, { name: title, url: entry.canonical }]),
+  ].filter(Boolean);
+} else if (entry.type === 'issue-toc') {
+  const jn = j ? j.name : entry.journal;
+  title = `${jn} — Volume ${entry.vol}, Issue ${entry.issue}`;
+  description = `Table of contents for ${jn}, volume ${entry.vol}, issue ${entry.issue}: ${entry.articles.length} articles from the Society for General Microbiology research archive.`;
+  jsonld = [breadcrumb([
+    { name: 'Home', url: '/' },
+    j && { name: j.name, url: `/${j.code}` },
+    { name: `Volume ${entry.vol}`, url: `/${entry.journal}/content/${entry.vol}` },
+    { name: `Issue ${entry.issue}`, url: entry.canonical },
+  ].filter(Boolean))];
+  if (/vol\d+|issue/i.test(String(entry.vol)) || /issue/i.test(String(entry.issue))) robots = 'noindex,follow';
+} else if (entry.type === 'volume-toc') {
+  const jn = j ? j.name : entry.journal;
+  title = `${jn} — Volume ${entry.vol}`;
+  description = `All issues of ${jn}, volume ${entry.vol} — ${entry.issues.length} issues in the Society for General Microbiology research archive.`;
+  jsonld = [breadcrumb([
+    { name: 'Home', url: '/' },
+    j && { name: j.name, url: `/${j.code}` },
+    { name: `Volume ${entry.vol}`, url: entry.canonical },
+  ].filter(Boolean))];
+  if (/vol\d+/i.test(String(entry.vol))) robots = 'noindex,follow';
 } else {
-  title = entry.title || 'Information';
-  description = (entry.bodyHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240)
-    || `${title} — an archived page from the SGM Journals research archive.`;
+  const jcode = (entry.slug || '').split('/')[0];
+  const jj = getJournal(jcode);
+  const base = entry.title || 'Information';
+  // Disambiguate journal-scoped utility pages so titles/descriptions are unique
+  // site-wide (e.g. "Subscriptions" → "Subscriptions — Microbiology").
+  title = jj && !base.includes(jj.name) ? `${base} — ${jj.name}` : base;
+  const body = stripHtml(entry.bodyHtml).slice(0, 200);
+  description = body || `${title} — an archived ${jj ? jj.name + ' ' : ''}page from the SGM Journals research archive.`;
+  // Always carry the journal name so journal-scoped utility pages are unique
+  // site-wide even when their recovered body text is identical.
+  if (jj && !description.includes(jj.name)) {
+    const tail = ` — ${jj.name}.`;
+    description = (description.length + tail.length > 158
+      ? description.slice(0, 158 - tail.length).replace(/\s+\S*$/, '')
+      : description) + tail;
+  } else if (description.length > 158) {
+    description = description.slice(0, 155).replace(/\s+\S*$/, '');
+  }
+  // Utility / duplicate-navigation pages stay reachable but out of the index (PRD R4).
+  const utility = /(\/cgi\/|\.shtml$|\.dtl$|external-ref$|\/rss$|content\/vol\d+|contents-by-date|papby|\/search$)/.test('/' + (entry.slug || ''));
+  if (utility) robots = 'noindex,follow';
+  jsonld = [breadcrumb([{ name: 'Home', url: '/' }, jj && { name: jj.name, url: `/${jcode}` }, { name: base, url: entry.canonical }].filter(Boolean))];
 }
 
 const navActive = 'Journals';
-// Every reconstructed page (including stubs and citation-only articles) is
-// served 200 + canonical and is left indexable so the full archive can be
-// crawled and indexed.
 ---
-<BaseLayout title={title} description={description} canonical={entry.canonical} navActive={navActive} jsonld={jsonld}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={entry.canonical}
+  navActive={navActive}
+  jsonld={jsonld}
+  ogType={ogType}
+  published={published}
+  articleAuthors={articleAuthors}
+  section={section}
+  brand={brand}
+  robots={robots}
+>
   {entry.type === 'article' && <ArticleView entry={entry} />}
-  {entry.type === 'journal-home' && <JournalHomeView entry={entry} articles={related} />}
+  {entry.type === 'journal-home' && <JournalHomeView entry={entry} articles={related} volumes={volumes} />}
+  {entry.type === 'issue-toc' && <IssueTocView entry={entry} />}
+  {entry.type === 'volume-toc' && <VolumeTocView entry={entry} />}
   {(entry.type === 'info-page' || entry.type === 'other' || entry.type === 'subscriptions' || entry.type === 'toc/issue') && <InfoView entry={entry} />}
 </BaseLayout>

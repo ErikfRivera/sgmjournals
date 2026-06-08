@@ -2,18 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { journalList } from '../lib/journals.js';
+import { websiteSchema, organizationSchema } from '../lib/seo.js';
 
 const journals = journalList();
 const description =
   'The archive of the Society for General Microbiology research journals: Microbiology, Journal of General Virology, Journal of Medical Microbiology, IJSEM and JMM Case Reports.';
 
-const jsonld = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'SGM Journals — Society for General Microbiology',
-  url: 'https://www.sgmjournals.org/',
-  description,
-};
+const jsonld = [websiteSchema(), organizationSchema()];
 ---
 <BaseLayout title={null} description={description} navActive="Journals" jsonld={jsonld}>
   <!-- Hero -->

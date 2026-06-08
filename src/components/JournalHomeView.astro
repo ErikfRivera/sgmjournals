@@ -2,8 +2,8 @@
 import Icon from './Icon.astro';
 import { getJournal } from '../lib/journals.js';
 
-// props: entry (journal-home), articles (array of {slug,title,authors,type,vol,issue,date,doi,refdomains})
-const { entry, articles = [] } = Astro.props;
+// props: entry (journal-home), articles (array of {slug,title,authors,type,vol,issue,date,doi,refdomains}), volumes
+const { entry, articles = [], volumes = [] } = Astro.props;
 const j = getJournal(entry.journal) || { name: entry.journal, accent: 'var(--brand-primary)' };
 const accent = j.accent;
 const top = articles.slice(0, 40);
@@ -59,6 +59,18 @@ const top = articles.slice(0, 40);
       <div class="sgm-card" style="background:var(--surface-1);text-align:center;padding:var(--sp-8);color:var(--text-muted)">
         <p class="sgm-body" style="margin:0">Articles for this journal are being added to the archive.</p>
       </div>
+    )}
+    {volumes.length > 0 && (
+      <section style="margin-top:var(--sp-8)">
+        <div class="block-head"><h2>Browse the archive by volume</h2></div>
+        <div class="vol-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--sp-2)">
+          {volumes.map((v) => (
+            <a class="vol-chip sgm-link" href={v.url} style="display:block;padding:var(--sp-2) var(--sp-3);border:1px solid var(--border,#e2e2e2);border-radius:8px;font-size:var(--fs-body-sm)">
+              <strong>Volume {v.vol}</strong><br /><span style="color:var(--text-muted);font-size:var(--fs-meta)">{v.count} article{v.count === 1 ? '' : 's'} · {v.issues} issue{v.issues === 1 ? '' : 's'}</span>
+            </a>
+          ))}
+        </div>
+      </section>
     )}
     {entry.introHtml && (
       <section style="margin-top:var(--sp-8)">

@@ -1,0 +1,38 @@
+---
+import { getJournal } from '../lib/journals.js';
+const { entry } = Astro.props;
+const j = getJournal(entry.journal);
+const accent = j ? j.accent : 'var(--brand-primary)';
+const jn = j ? j.name : entry.journal;
+const arts = entry.articles || [];
+---
+<header class="article-head" style={`--acc:${accent}`}>
+  <div class="article-head__stripe"></div>
+  <div class="sgm-container article-head__inner">
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span>
+      {j && <><a href={`/${j.code}`}>{j.name}</a><span>/</span></>}
+      <a href={`/${entry.journal}/content/${entry.vol}`}>Volume {entry.vol}</a><span>/</span>
+      <span>Issue {entry.issue}</span>
+    </nav>
+    <div class="article-type">Issue table of contents</div>
+    <h1 class="article-title">{jn} — Volume {entry.vol}, Issue {entry.issue}</h1>
+    <p class="article-authors">{arts.length} article{arts.length === 1 ? '' : 's'} in this issue</p>
+  </div>
+</header>
+
+<div class="sgm-container" style={`--acc:${accent};padding:var(--sp-8) var(--sp-4)`}>
+  <div class="artlist">
+    {arts.map((a) => (
+      <article class="artitem">
+        {a.type && <div class="artitem__type">{a.type}</div>}
+        <h2 class="artitem__title" style="font-size:var(--fs-h4,1.1rem)"><a href={`/${a.slug}`}>{a.title}</a></h2>
+        {a.authors && <div class="artitem__authors">{a.authors}</div>}
+        <div class="artitem__meta">
+          {a.page && <span>p. {a.page}{a.lastpage && a.lastpage !== a.page ? `–${a.lastpage}` : ''}</span>}
+          {a.doi && <span class="doi">https://doi.org/{a.doi}</span>}
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
