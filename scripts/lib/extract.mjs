@@ -2,6 +2,7 @@
 import * as cheerio from 'cheerio';
 import { resolveAsset, copyAsset, lookupLoose } from './db.mjs';
 import { hostToJournal } from './paths.mjs';
+import { isOldFormat, extractOldArticle } from './oldformat.mjs';
 
 // ---- metadata -------------------------------------------------------------
 export function extractMeta(html) {
@@ -198,7 +199,7 @@ export function extractArticle(html, ctx) {
     rewriteLinks($, $ft, ctx);
     bodyHtml = cleanHtml($, $ft);
   } else {
-    // Abstract-only page: try the abstract block on its own
+    // Abstract-only page (modern markup): try the abstract block on its own
     const $absView = $('.abstract, .section.abstract, #abstract-1').first();
     if ($absView.length) {
       const $c = $absView.clone();
@@ -206,6 +207,17 @@ export function extractArticle(html, ctx) {
       $c.find('h2').first().remove();
       abstractHtml = cleanHtml($, $c);
     }
+  }
+
+  // Old-format HighWire fallback: the archive captured the legacy anchor-based
+  // markup (id="ABS"/"SEC1"/"BIBL") for which none of the modern selectors match.
+  // If we got nothing usable above and this is old-format, parse it that way.
+  if (!bodyHtml && !abstractHtml && isOldFormat(html)) {
+    const old = extractOldArticle(html, ctx);
+    if (old.abstractHtml) abstractHtml = old.abstractHtml;
+    if (old.bodyHtml) bodyHtml = old.bodyHtml;
+    if (old.referencesHtml) referencesHtml = old.referencesHtml;
+    if (old.correspHtml && !correspHtml) correspHtml = old.correspHtml;
   }
 
   // PDF availability: look up the recovered full.pdf
