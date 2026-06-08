@@ -90,4 +90,32 @@ const jsonld = {
       <a href="/about" class="sgm-btn sgm-btn--on-dark sgm-btn--lg">Learn more about the Society</a>
     </div>
   </section>
+
+  <!-- In collaboration with -->
+  <section class="section section--gray" id="collaborators">
+    <div class="sgm-container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sgm-h1 sec-head__title">In collaboration with</h2>
+          <p class="sec-head__sub">Our collaborators help keep this research archive freely accessible.</p>
+        </div>
+      </div>
+      <p class="sponsors">
+        <a class="sgm-link" href="https://www.stronghealth.com">stronghealth</a>
+        <a class="sgm-link" href="https://www.dexascans.com">dexascans</a>
+      </p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .sponsors {
+    display: flex;
+    gap: var(--sp-6);
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: 600;
+    font-size: var(--fs-body-lg, 1.125rem);
+    margin: 0;
+  }
+</style>
