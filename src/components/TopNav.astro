@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'For Reviewers', href: '/about/for-reviewers' },
   { label: 'Open Access', href: '/about/open-access' },
   { label: 'About', href: '/about' },
+  { label: 'Dexascans', href: 'https://www.dexascans.com', external: true },
 ];
 ---
 <header class="nav">
@@ -23,6 +24,8 @@ const NAV_LINKS = [
         {NAV_LINKS.map((l) => (
           <li>
             <a href={l.href} aria-current={active === l.label ? 'page' : undefined}
+               target={l.external ? '_blank' : undefined}
+               rel={l.external ? 'noopener noreferrer' : undefined}
                style={active === l.label ? 'color:var(--brand-primary);font-weight:600' : undefined}>{l.label}</a>
           </li>
         ))}
@@ -46,7 +49,7 @@ const NAV_LINKS = [
     <button class="nav__icon-btn" aria-label="Close menu" data-drawer-close><Icon name="x" size={22} /></button>
   </div>
   <ul class="drawer__links">
-    {NAV_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    {NAV_LINKS.map((l) => <li><a href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener noreferrer' : undefined}>{l.label}</a></li>)}
   </ul>
   <div class="drawer__cta">
     <a href="/about" class="sgm-btn sgm-btn--secondary sgm-btn--lg" style="justify-content:center">About the Society</a>
