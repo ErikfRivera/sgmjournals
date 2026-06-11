@@ -6,6 +6,7 @@
   "description": "Static rebuild of sgmjournals.org (Society for General Microbiology journals) as a single-domain Astro site.",
   "scripts": {
     "ingest": "node scripts/ingest.mjs",
+    "brand": "node scripts/gen-brand-assets.mjs",
     "dev": "astro dev",
     "build": "NODE_OPTIONS=--max-old-space-size=6144 astro build",
     "preview": "astro preview"
@@ -14,6 +15,7 @@
     "astro": "^4.16.18"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "better-sqlite3": "^11.8.1",
     "cheerio": "^1.0.0"
   }
