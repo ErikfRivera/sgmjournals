@@ -15,6 +15,11 @@ const ABOUT = [
   { label: 'Contact us', href: '/about/contact' },
   { label: 'All journals', href: '/#journals' },
 ];
+const PARTNERS = [
+  { label: 'Strong Health', href: 'https://www.stronghealth.com' },
+  { label: 'Thrive Talk', href: 'http://www.thrivetalk.com' },
+  { label: 'Dexascans', href: 'http://www.dexascans.com' },
+];
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
@@ -31,6 +36,10 @@ const year = new Date().getFullYear();
       <div class="footer__col">
         <h4>About</h4>
         <ul>{ABOUT.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+      </div>
+      <div class="footer__col">
+        <h4>Partners</h4>
+        <ul>{PARTNERS.map((i) => <li><a href={i.href} target="_blank" rel="noopener">{i.label}</a></li>)}</ul>
       </div>
       <div class="footer__col">
         <h4>Connect</h4>
