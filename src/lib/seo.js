@@ -2,12 +2,19 @@
 // schema.org JSON-LD builders used by the article / journal / TOC templates.
 import { getJournal } from './journals.js';
 
+const SITE = 'https://www.sgmjournals.org';
+// Absolute URL to the brand logo (three-hexagon mark + wordmark) that Google
+// uses for the Organization / publisher entity in the knowledge panel and
+// article rich results. Kept in sync with the favicon and OG card via
+// scripts/gen-brand-assets.mjs.
+const LOGO_URL = `${SITE}/logo.png`;
+
 const PUBLISHER = {
   '@type': 'Organization',
   name: 'Microbiology Society',
   url: 'https://www.microbiologysociety.org/',
+  logo: { '@type': 'ImageObject', url: LOGO_URL },
 };
-const SITE = 'https://www.sgmjournals.org';
 
 // HighWire dates arrive as MM/DD/YYYY (or sometimes a bare year). Emit the
 // tightest valid ISO 8601 value Rich Results will accept.
@@ -139,6 +146,8 @@ export function organizationSchema() {
     name: 'Microbiology Society',
     alternateName: 'Society for General Microbiology',
     url: 'https://www.microbiologysociety.org/',
+    logo: { '@type': 'ImageObject', url: LOGO_URL },
+    image: LOGO_URL,
   };
 }
 
