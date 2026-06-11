@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { journalList } from '../lib/journals.js';
+
+const journals = journalList();
+const MAIN = [
+  { label: 'Home', href: '/' },
+  { label: 'Search', href: '/search' },
+  { label: 'About this archive', href: '/about' },
+];
+const ABOUT = [
+  { label: 'For authors', href: '/about/for-authors' },
+  { label: 'For reviewers', href: '/about/for-reviewers' },
+  { label: 'Open Access', href: '/about/open-access' },
+  { label: 'Subscriptions', href: '/about/subscriptions' },
+  { label: 'Contact', href: '/about/contact' },
+];
+---
+<BaseLayout title="Sitemap" description="An overview of the main sections of the SGM Journals archive.">
+  <header class="page-head">
+    <div class="sgm-container page-head__inner">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span style="color:var(--text-body)">Sitemap</span></nav>
+      <h1>Sitemap</h1>
+    </div>
+  </header>
+  <div class="sgm-container page-body">
+    <div class="prose" style="max-width:var(--container-text)">
+      <p>An overview of the main sections of this archive. A complete, machine-readable list of every page is available in the <a href="/sitemap.xml">XML sitemap</a>.</p>
+
+      <h2>Main pages</h2>
+      <ul>{MAIN.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+
+      <h2>Journals</h2>
+      <ul>{journals.map((j) => <li><a href={`/${j.code}`}>{j.name}</a></li>)}</ul>
+
+      <h2>About &amp; policies</h2>
+      <ul>{ABOUT.map((i) => <li><a href={i.href}>{i.label}</a></li>)}</ul>
+    </div>
+  </div>
+</BaseLayout>
